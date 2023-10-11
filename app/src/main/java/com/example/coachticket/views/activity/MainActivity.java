@@ -1,4 +1,4 @@
-package com.example.coachticket.views;
+package com.example.coachticket.views.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
