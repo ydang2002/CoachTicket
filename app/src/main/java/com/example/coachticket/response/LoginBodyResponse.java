@@ -1,8 +1,8 @@
-package com.example.coachticket.models;
+package com.example.coachticket.response;
 
 import com.google.gson.annotations.SerializedName;
 
-public class LoginBody {
+public class LoginBodyResponse {
 
     @SerializedName("email")
     private String email;
@@ -10,7 +10,7 @@ public class LoginBody {
     @SerializedName("password")
     private String password;
 
-    public LoginBody(String email, String password) {
+    public LoginBodyResponse(String email, String password) {
         this.email = email;
         this.password = password;
     }
@@ -30,4 +30,6 @@ public class LoginBody {
     public void setPassword(String password) {
         this.password = password;
     }
+
+    // Kiểm tra tính hợp lệ của email
 }

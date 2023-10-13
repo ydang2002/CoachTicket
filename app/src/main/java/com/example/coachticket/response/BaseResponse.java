@@ -1,4 +1,4 @@
-package com.example.coachticket.models;
+package com.example.coachticket.response;
 
 public class BaseResponse<T> {
     private T data;

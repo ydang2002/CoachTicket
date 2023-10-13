@@ -8,7 +8,7 @@
     <data>
         <variable
             name="LoginBody"
-            type="com.example.coachticket.models.LoginBody" />
+            type="com.example.coachticket.response.LoginBodyResponse" />
         <variable
             name="loginViewModel"
             type="com.example.coachticket.viewmodels.LoginViewModel" />
