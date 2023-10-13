@@ -3,21 +3,20 @@ package com.example.coachticket.viewmodels;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.databinding.BaseObservable;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
+import androidx.lifecycle.ViewModel;
 
 import com.example.coachticket.SharedPreferences.SharedPreferencesUtil;
 import com.example.coachticket.api.ILoginService;
-import com.example.coachticket.api.LoginCallback;
-import com.example.coachticket.models.BaseResponse;
-import com.example.coachticket.models.LoginBody;
+import com.example.coachticket.response.BaseResponse;
+import com.example.coachticket.response.LoginBodyResponse;
 import com.example.coachticket.models.User;
-import com.example.coachticket.views.activity.LoginActivity;
 import com.example.coachticket.views.activity.MainActivity;
 import com.example.coachticket.views.activity.SignUpActivity;
 
@@ -27,9 +26,10 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class LoginViewModel extends BaseObservable {
+public class LoginViewModel extends ViewModel {
 
     private Context context;
+    private String emailPattern = "[a-zA-Z0-9._-]+@gmail+\\.+com+";
     public ObservableInt progressBar;
     public final ObservableField<String > login_email = new ObservableField<>("");
     public final ObservableField<String > login_pass = new ObservableField<>("");
@@ -47,8 +47,27 @@ public class LoginViewModel extends BaseObservable {
     ILoginService iLoginService = retrofit.create(ILoginService.class);
 
     public void loginViewModel(Context context, String email, String password) {
+        if (TextUtils.isEmpty(email)) {
+            showToast("Vui lòng nhập email");
+            return;
+        }
+
+        if (!email.matches(emailPattern)) {
+            showToast("Vui lòng nhập đúng định dạng email");
+            return;
+        }
+
+        if (TextUtils.isEmpty(password)) {
+           showToast("Vui lòng nhập mật khẩu");
+            return;
+        }
+
+        if (password.length() < 8) {
+           showToast("Mật khẩu phải lớn hơn 7 kí tự");
+            return;
+        }
         progressBar.set(View.VISIBLE);
-        LoginBody loginBody = new LoginBody(email, password);
+        LoginBodyResponse loginBody = new LoginBodyResponse(email, password);
         Call<BaseResponse<User>> call = iLoginService.login(loginBody);
         call.enqueue(new Callback<BaseResponse<User>>() {
             @Override
@@ -75,16 +94,13 @@ public class LoginViewModel extends BaseObservable {
                 }
                 catch(Exception e) {
                     Log.e("ExceptionLoginreponse", "error"+ e.getMessage());
-                    System.out.println("ExceptionLoginreponse " + e.getMessage());
                 }
             }
 
             @Override
             public void onFailure(Call<BaseResponse<User>> call, Throwable t) {
                 progressBar.set(View.GONE);
-//                callback.onLoginFailure("Lỗi kết nối"+t.getMessage());
                 showToast("Lỗi kết nối" + t.getMessage());
-                Log.e("loginreponse3", "Lỗi kết nối"+t.getMessage());
             }
         });
     }
