@@ -6,13 +6,17 @@ public class User {
     private String name;
     private String phoneNumber;
     private String token;
+    private String address;
+    private String password;
 
-    public User(String _id, String email, String name, String phoneNumber, String token) {
+    public User(String _id, String email, String name, String phoneNumber, String token, String address, String password) {
         this._id = _id;
         this.email = email;
         this.name = name;
         this.phoneNumber = phoneNumber;
         this.token = token;
+        this.address = address;
+        this.password = password;
     }
 
     public String get_id() {
@@ -53,5 +57,34 @@ public class User {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "_id='" + _id + '\'' +
+                ", email='" + email + '\'' +
+                ", name='" + name + '\'' +
+                ", phoneNumber='" + phoneNumber + '\'' +
+                ", token='" + token + '\'' +
+                ", address='" + address + '\'' +
+                ", password='" + password + '\'' +
+                '}';
     }
 }
