@@ -1,5 +1,7 @@
 package com.example.coachticket.presenter;
 
-public interface Presenter {
-    void login();
+public class Presenter {
+    public void login() {}
+    public void signUp(){}
+    public void intent(){}
 }

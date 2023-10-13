@@ -70,6 +70,15 @@
                 app:layout_constraintTop_toBottomOf="@+id/usertype_login"
                 app:layout_constraintVertical_bias="0.263">
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:text="EMAIL"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
                 <EditText
                     android:id="@+id/login_email"
                     android:layout_width="match_parent"
@@ -86,12 +95,22 @@
                     android:singleLine="true"
                     android:textColorHint="@color/text_color" />
 
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="5dp"
+                    android:layout_marginTop="20dp"
+                    android:text="MẬT KHẨU"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
 
                 <EditText
                     android:id="@+id/login_pass"
                     android:layout_width="match_parent"
                     android:layout_height="50dp"
-                    android:layout_marginTop="20dp"
+                    android:layout_marginTop="0dp"
                     android:background="@drawable/edittext_bg"
                     android:drawableStart="@drawable/ic_baseline_lock_24"
                     android:drawablePadding="10dp"
@@ -111,7 +130,7 @@
                     android:layout_marginTop="20dp"
                     android:background="@drawable/button_shape"
                     android:text="Đăng nhập"
-                    android:onClick="@{(v)->presenter.login()}"
+                    android:onClick="@{()->presenter.login()}"
                     android:textAlignment="center"
                     android:textColor="@color/white"
                     android:textSize="16sp"
@@ -129,7 +148,7 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-                android:visibility="gone"
+                android:visibility="@{loginViewModel.progressBar}"
                 app:layout_constraintBottom_toTopOf="@+id/login_signup_btn"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
@@ -145,6 +164,7 @@
                 android:layout_marginBottom="8dp"
                 android:background="@android:color/transparent"
                 android:text="Tạo tài khoản mới?"
+                android:onClick="@{(v)-> loginViewModel.intent()}"
                 android:textAllCaps="false"
                 android:textColor="@color/black"
                 android:textStyle="bold"

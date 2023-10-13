@@ -14,10 +14,10 @@ import retrofit2.http.Query;
 
 public interface ILoginService {
 
-//    @POST("users/login")
-//    Call<BaseResponse<User>> login(@Query("email") String email, @Query("password") String password);
-
     @POST("users/login")
     Call<BaseResponse<User>> login(@Body LoginBody loginBody);
+
+    @POST("users/register")
+    Call<User> register(@Body User user);
 
 }
