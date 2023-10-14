@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="purple_200">#FFBB86FC</color>
+    <color name="purple200">#FFBB86FC</color>
     <color name="purple_500">#FF6200EE</color>
     <color name="purple_700">#FF3700B3</color>
     <color name="teal_200">#FF03DAC5</color>
@@ -10,6 +10,7 @@
     <color name="LoginBackground">#FFC107</color>
     <color name="text_color">#FF000000</color>
     <color name="colorPrimary">#e0e0e0</color>
+    <color name="colorPrimary2">#28E0E0E0</color>
     <color name="grey">#a9a9a9</color>
     <color name="red">#D53B3B</color>
     <color name="backgroundOrder">#00BCD4</color>

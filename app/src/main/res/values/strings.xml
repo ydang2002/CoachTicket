@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Coach Ticket</string>
+    <string name="action_home">Home</string>
+    <string name="action_history">History</string>
+    <string name="action_account">Account</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 </resources>
