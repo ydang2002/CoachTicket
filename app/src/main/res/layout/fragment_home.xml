@@ -1,16 +1,180 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".views.fragment.HomeFragment"
-    android:background="@color/colorPrimary">
+<layout>
 
-    <TextView
-        android:layout_width="wrap_content"
+    <data>
+        <variable
+            name="RoutesViewModel"
+            type="com.example.coachticket.viewmodels.RoutesViewModel" />
+        <variable
+            name="presenter"
+            type="com.example.coachticket.presenter.Presenter" />
+        <variable
+            name="FragmentHome"
+            type="com.example.coachticket.views.fragment.HomeFragment" />
+    </data>
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="Home Fragment"
-        android:textSize="30sp"
-        android:textColor="@color/white"/>
+        android:background="@color/colorPrimary"
+        android:orientation="vertical">
 
-</FrameLayout>
+        <androidx.cardview.widget.CardView
+            android:id="@+id/card1"
+            android:layout_width="match_parent"
+            android:layout_height="50dp"
+            android:elevation="5dp"
+            app:cardBackgroundColor="@color/colorPrimary">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerInParent="true"
+                    android:text="Chọn tuyến đường"
+                    android:textColor="@color/black"
+                    android:textSize="18sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </androidx.cardview.widget.CardView>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="30dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:paddingBottom="10dp"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:padding="5dp"
+                android:text="ĐIỂM ĐI"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/text_input_bg">
+
+                <Spinner
+                    android:id="@+id/spinner_origin"
+                    android:layout_width="match_parent"
+                    android:layout_height="50dp"
+                    android:entries="@{RoutesViewModel.origin}"
+                    android:onItemSelected="@{(parent, view, position, id) -> RoutesViewModel.setSelectedOrigin(parent.getItemAtPosition(position).toString())}"
+                    android:layout_margin="1dp" />
+<!--                <Spinner-->
+<!--                    android:id="@+id/spinner_origin"-->
+<!--                    android:layout_width="match_parent"-->
+<!--                    android:layout_height="50dp"-->
+<!--                    android:entries="@{RoutesViewModel.origin}"-->
+<!--                    app:onItemSelected="@{RoutesViewModel}"-->
+<!--                    android:layout_margin="1dp" />-->
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
+                android:padding="5dp"
+                android:text="ĐIỂM ĐẾN"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="10dp"
+                android:orientation="vertical"
+                android:visibility="visible">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/text_input_bg">
+
+                    <Spinner
+                        android:id="@+id/spinner_destination"
+                        android:layout_width="match_parent"
+                        android:entries="@{RoutesViewModel.destination}"
+                        android:onItemSelected="@{(parent, view, position, id) -> RoutesViewModel.setSelectedDestination(parent.getItemAtPosition(position).toString())}"
+                        android:layout_height="50dp"
+                        android:layout_margin="1dp" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:padding="5dp"
+                android:text="NGÀY ĐI"
+                android:textColor="@color/black"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/originDate"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:background="@drawable/rounded_background"
+                    android:drawableRight="@drawable/baseline_keyboard_arrow_down_24"
+                    android:drawableLeft="@drawable/baseline_calendar_month_24"
+                    android:drawablePadding="8dp"
+                    android:onClick="@{() -> FragmentHome.onDisplayDatePickerDialogClick()}"
+                    android:gravity="center_vertical"
+                    android:padding="10dp"
+                    android:paddingStart="8dp"
+                    android:text="@={RoutesViewModel.textViewDate}"
+                    android:textColor="@color/black"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+            </RelativeLayout>
+        </LinearLayout>
+<!--        android:text="@={RoutesViewModel.textViewDate}"-->
+        <ProgressBar
+            android:id="@+id/progress_bar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"
+            android:visibility="gone" />
+
+        <androidx.appcompat.widget.AppCompatButton
+            android:id="@+id/search_routes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_marginBottom="20dp"
+            android:background="@drawable/button_shape"
+            android:text="Tìm kiếm"
+            android:onClick="@{(v) -> presenter.getRoutesProvinces()}"
+            android:textAlignment="center"
+            android:textColor="@color/white"
+            android:textSize="16sp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent" />
+    </LinearLayout>
+
+</layout>

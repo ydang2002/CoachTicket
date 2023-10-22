@@ -57,4 +57,11 @@ dependencies {
     implementation("com.squareup.okhttp3:logging-interceptor:4.9.0")
 
     implementation(platform("org.jetbrains.kotlin:kotlin-bom:1.8.0"))
+
+    //date picker
+    implementation ("com.google.android.material:material:1.11.0-alpha03")
+    implementation ("androidx.lifecycle:lifecycle-extensions:2.2.0")
+
+//    implementation ("android.arch.lifecycle:extensions:1.1.1")
+//    implementation ("android.arch.lifecycle:viewmodel:1.1.1")
 }
