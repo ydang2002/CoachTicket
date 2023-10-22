@@ -15,6 +15,9 @@
         android:theme="@style/Theme.CoachTicket"
         tools:targetApi="31">
         <activity
+            android:name=".views.activity.ChooseCarrier"
+            android:exported="false" />
+        <activity
             android:name=".views.activity.SignUpActivity"
             android:exported="false" />
         <activity
