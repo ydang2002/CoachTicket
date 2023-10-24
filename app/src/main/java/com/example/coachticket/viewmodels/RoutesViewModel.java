@@ -1,37 +1,22 @@
 package com.example.coachticket.viewmodels;
 
-import android.app.Activity;
-import android.app.DatePickerDialog;
 import android.content.Context;
-import android.content.Intent;
-import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
-import android.widget.AdapterView;
-import android.widget.DatePicker;
-import android.widget.Spinner;
 import android.widget.Toast;
 
-import androidx.databinding.BindingAdapter;
 import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
-import com.example.coachticket.R;
-import com.example.coachticket.SharedPreferences.SharedPreferencesUtil;
 import com.example.coachticket.api.ApiUtils;
 import com.example.coachticket.api.ILoginService;
 import com.example.coachticket.models.Routes;
-import com.example.coachticket.models.User;
 import com.example.coachticket.response.RoutesResponse;
-import com.example.coachticket.views.activity.ChooseCarrier;
-import com.example.coachticket.views.activity.SignUpActivity;
 
-import java.lang.ref.WeakReference;
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import retrofit2.Call;

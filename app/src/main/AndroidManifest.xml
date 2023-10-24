@@ -15,10 +15,10 @@
         android:theme="@style/Theme.CoachTicket"
         tools:targetApi="31">
         <activity
-            android:name=".views.activity.ChooseSeat"
+            android:name=".views.activity.ChooseSeatActivity"
             android:exported="false" />
         <activity
-            android:name=".views.activity.ChooseCarrier"
+            android:name=".views.activity.ChooseCarrierActivity"
             android:exported="false" />
         <activity
             android:name=".views.activity.SignUpActivity"
