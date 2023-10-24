@@ -1,7 +1,10 @@
 package com.example.coachticket.viewmodels;
 
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Context;
+import android.content.Intent;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
@@ -23,6 +26,8 @@ import com.example.coachticket.api.ILoginService;
 import com.example.coachticket.models.Routes;
 import com.example.coachticket.models.User;
 import com.example.coachticket.response.RoutesResponse;
+import com.example.coachticket.views.activity.ChooseCarrier;
+import com.example.coachticket.views.activity.SignUpActivity;
 
 import java.lang.ref.WeakReference;
 import java.util.ArrayList;
@@ -34,46 +39,26 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class RoutesViewModel extends ViewModel {
-
-    //    private WeakReference<Context> context;
     private Context context;
     public ObservableInt progressBar;
     private ILoginService iLoginService;
-    private MutableLiveData<RoutesResponse> dataModelLiveData = new MutableLiveData<>();
     private RoutesResponse routesResponse;
-
     public ObservableField<String> textViewDate = new ObservableField<>();
+    private List<Routes> mRoutes2;
 
-    public String[] origin = {
-            "Chọn điểm đi", "AnGiang", "Bà Rịa-Vũng Tàu", "Bắc Giang", "Bắc Kạn", "Bạc Liêu",
-            "Bắc Ninh", "Bến Tre", "Bình Định", "Bình Dương", "Bình Phước", "Bình Thuận", "Cà Mau",
-            "Cần Thơ", "Cao Bằng", "Đà Nẵng", "Đắk Lắk", "Đắk Nông", "Điện Biên", "Đồng Nai",
-            "Đồng Tháp", "Gia Lai", "Hà Giang", "Hà Nam", "Hà Nội", "Hà Tĩnh", "Hải Dương",
-            "Hải Phòng", "Hậu Giang", "TP. Hồ Chí Minh", "Hòa Bình", "Hưng Yên", "Khánh Hòa",
-            "Kiên Giang", "Kon Tum", "Lai Châu", "Lâm Đồng", "Lạng Sơn", "Lào Cai", "Long An",
-            "Nam Định", "Nghệ An", "Ninh Bình", "Ninh Thuận", "Phú Thọ", "Phú Yên", "Quảng Bình",
-            "Quảng Nam", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị", "Sóc Trăng", "Sơn La", "Tây Ninh",
-            "Thái Bình", "Thái Nguyên", "Thanh Hóa", "Thừa Thiên - Huế", "Tiền Giang", "Trà Vinh",
-            "Tuyên Quang", "Vĩnh Long", "Vĩnh Phúc", "Yên Bái"
-    };
+    public List<Routes> getmRoutes2() {
+        return mRoutes2;
+    }
 
-    public String[] destination = {
-            "Chọn điểm đến", "An Giang", "Bà Rịa-Vũng Tàu", "BacGiang", "Bắc Kạn", "Bạc Liêu",
-            "Bắc Ninh", "Bến Tre", "Bình Định", "Bình Dương", "Bình Phước", "Bình Thuận", "Cà Mau",
-            "Cần Thơ", "Cao Bằng", "Đà Nẵng", "Đắk Lắk", "Đắk Nông", "Điện Biên", "Đồng Nai",
-            "Đồng Tháp", "Gia Lai", "Hà Giang", "Hà Nam", "Hà Nội", "Hà Tĩnh", "Hải Dương",
-            "Hải Phòng", "Hậu Giang", "TP. Hồ Chí Minh", "Hòa Bình", "Hưng Yên", "Khánh Hòa",
-            "Kiên Giang", "Kon Tum", "Lai Châu", "Lâm Đồng", "Lạng Sơn", "Lào Cai", "Long An",
-            "Nam Định", "Nghệ An", "Ninh Bình", "Ninh Thuận", "Phú Thọ", "Phú Yên", "Quảng Bình",
-            "Quảng Nam", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị", "Sóc Trăng", "Sơn La", "Tây Ninh",
-            "Thái Bình", "Thái Nguyên", "Thanh Hóa", "Thừa Thiên - Huế", "Tiền Giang", "Trà Vinh",
-            "Tuyên Quang", "Vĩnh Long", "Vĩnh Phúc", "Yên Bái"
-    };
+    public void setmRoutes2(List<Routes> mRoutes2) {
+        this.mRoutes2 = mRoutes2;
+    }
 
     public RoutesViewModel(Context context) {
 //        context = new WeakReference<>(ontext);
         this.context = context;
         this.progressBar = new ObservableInt(View.GONE);
+        mRoutes2 = new ArrayList<>();
     }
 
     private MutableLiveData<List<Routes>> mRoutes = new MutableLiveData<>();
@@ -86,6 +71,15 @@ public class RoutesViewModel extends ViewModel {
     private MutableLiveData<String> date = new MutableLiveData<>();
     private MutableLiveData<String> selectedOrigin = new MutableLiveData<>();
     private MutableLiveData<String> selectedDestination = new MutableLiveData<>();
+    private List<Routes> routesResult = new ArrayList<>();
+
+    public List<Routes> getRoutesResult() {
+        return routesResult;
+    }
+
+    public void setRoutesResult(List<Routes> routesResult) {
+        this.routesResult = routesResult;
+    }
 
     public RoutesViewModel() {
         date = new MutableLiveData<>();
@@ -116,7 +110,33 @@ public class RoutesViewModel extends ViewModel {
         selectedDestination.setValue(value);
     }
 
-//    public LiveData<RoutesResponse> getRoutesProvinces() {
+    public String[] origin = {
+            "Chọn điểm đi", "AnGiang", "Bà Rịa-Vũng Tàu", "Bắc Giang", "Bắc Kạn", "Bạc Liêu",
+            "Bắc Ninh", "Bến Tre", "Bình Định", "Bình Dương", "Bình Phước", "Bình Thuận", "Cà Mau",
+            "Cần Thơ", "Cao Bằng", "Đà Nẵng", "Đắk Lắk", "Đắk Nông", "Điện Biên", "Đồng Nai",
+            "Đồng Tháp", "Gia Lai", "Hà Giang", "Hà Nam", "Hà Nội", "Hà Tĩnh", "Hải Dương",
+            "Hải Phòng", "Hậu Giang", "TP. Hồ Chí Minh", "Hòa Bình", "Hưng Yên", "Khánh Hòa",
+            "Kiên Giang", "Kon Tum", "Lai Châu", "Lâm Đồng", "Lạng Sơn", "Lào Cai", "Long An",
+            "Nam Định", "Nghệ An", "Ninh Bình", "Ninh Thuận", "Phú Thọ", "Phú Yên", "Quảng Bình",
+            "Quảng Nam", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị", "Sóc Trăng", "Sơn La", "Tây Ninh",
+            "Thái Bình", "Thái Nguyên", "Thanh Hóa", "Thừa Thiên - Huế", "Tiền Giang", "Trà Vinh",
+            "Tuyên Quang", "Vĩnh Long", "Vĩnh Phúc", "Yên Bái"
+    };
+
+    public String[] destination = {
+            "Chọn điểm đến", "An Giang", "Bà Rịa-Vũng Tàu", "BacGiang", "Bắc Kạn", "Bạc Liêu",
+            "Bắc Ninh", "Bến Tre", "Bình Định", "Bình Dương", "Bình Phước", "Bình Thuận", "Cà Mau",
+            "Cần Thơ", "Cao Bằng", "Đà Nẵng", "Đắk Lắk", "Đắk Nông", "Điện Biên", "Đồng Nai",
+            "Đồng Tháp", "Gia Lai", "Hà Giang", "Hà Nam", "Hà Nội", "Hà Tĩnh", "Hải Dương",
+            "Hải Phòng", "Hậu Giang", "TP. Hồ Chí Minh", "Hòa Bình", "Hưng Yên", "Khánh Hòa",
+            "Kiên Giang", "Kon Tum", "Lai Châu", "Lâm Đồng", "Lạng Sơn", "Lào Cai", "Long An",
+            "Nam Định", "Nghệ An", "Ninh Bình", "Ninh Thuận", "Phú Thọ", "Phú Yên", "Quảng Bình",
+            "Quảng Nam", "Quảng Ngãi", "Quảng Ninh", "Quảng Trị", "Sóc Trăng", "Sơn La", "Tây Ninh",
+            "Thái Bình", "Thái Nguyên", "Thanh Hóa", "Thừa Thiên - Huế", "Tiền Giang", "Trà Vinh",
+            "Tuyên Quang", "Vĩnh Long", "Vĩnh Phúc", "Yên Bái"
+    };
+    //    public LiveData<RoutesResponse> getRoutesProvinces() {
+//    public List<Routes> getRoutesProvinces(String token) {
     public void getRoutesProvinces(String token) {
 //        progressBar.set(View.VISIBLE);
         String origin = selectedOrigin.getValue();
@@ -141,16 +161,19 @@ public class RoutesViewModel extends ViewModel {
                                 Log.d("dataModelLiveData12", "get api thành công");
                                 routesResponse = response.body();
                                 mRoutes.setValue(routesResponse.getData());
-//                                mRoutes = (MutableLiveData<List<Routes>>) routesResponse.getData();
-//                            dataModelLiveData.setValue(response.body());
-//                            RoutesResponse<Routes> data = response.body();
-                                Log.d("dataModelLiveData", mRoutes.toString());
+                                List<Routes> mRoutes3 = new ArrayList<>();
+                                mRoutes3 = routesResponse.getData();
+//                                setmRoutes2(routesResponse.getData());
+                                mRoutes2 = routesResponse.getData();
+//                                setRoutesResult(routesResponse.getData());
+                                Log.d("dataModelLiveData", mRoutes2.toString());
+                                Log.d("dataModelLiveData", mRoutes3.toString());
                                 Log.d("dataModelLiveData23", routesResponse.getData().toString());
                             } else {
 //                            showToast("Lỗi khi lấy dữ liệu từ API");
                             }
-                        }  catch (Exception e) {
-                            Log.d("ExceptionOnResponse",  e.getMessage());
+                        } catch (Exception e) {
+                            Log.d("ExceptionOnResponse", e.getMessage());
                             System.out.println("Message ExceptionOnResponse: " + e.getMessage());
                         }
 
@@ -164,46 +187,47 @@ public class RoutesViewModel extends ViewModel {
 //                        progressBar.set(View.GONE);
 //                        showToast("Lỗi kết nối đến API: " + t.getMessage());
                             Log.d("ErrorConnectAPI", t.getMessage());
-                        }  catch (Exception e) {
-                            Log.d("ExceptionOnFailure",  e.getMessage());
+                        } catch (Exception e) {
+                            Log.d("ExceptionOnFailure", e.getMessage());
                             System.out.println("Message ExceptionOnFailure: " + e.getMessage());
                         }
                     }
                 });
+//        return mRoutes2;
     }
+
     public void getRoutes(String token) {
 
         Log.d("TOKENLOGIN", "SharedPreferencesUtilToken22:" + token);
         iLoginService = ApiUtils.getApiService(token);
 //        iLoginService.getRoutesProvinces("An Giang", "Bắc Giang", "25-10-2023")
         iLoginService.getRoutes().enqueue(new Callback<RoutesResponse<Routes>>() {
-                    @Override
-                    public void onResponse(Call<RoutesResponse<Routes>> call, Response<RoutesResponse<Routes>> response) {
+            @Override
+            public void onResponse(Call<RoutesResponse<Routes>> call, Response<RoutesResponse<Routes>> response) {
 //                        progressBar.set(View.GONE);
-                        if (response.isSuccessful()) {
-                            routesResponse = response.body();
+                if (response.isSuccessful()) {
+                    routesResponse = response.body();
 //                            mRoutes = routesResponse.getData();
 //                            dataModelLiveData.setValue(response.body());
 //                            RoutesResponse<Routes> data = response.body();
-                            Log.d("dataModelLiveData", response.toString());
-                            Log.d("dataModelLiveData23", routesResponse.getData().toString());
-                        } else {
+                    Log.d("dataModelLiveData", response.toString());
+                    Log.d("dataModelLiveData23", routesResponse.getData().toString());
+                } else {
 //                            showToast("Lỗi khi lấy dữ liệu từ API");
-                        }
-                    }
+                }
+            }
 
-                    @Override
-                    public void onFailure(Call<RoutesResponse<Routes>> call, Throwable t) {
+            @Override
+            public void onFailure(Call<RoutesResponse<Routes>> call, Throwable t) {
 //                        progressBar.set(View.GONE);
 //                        showToast("Lỗi kết nối đến API: " + t.getMessage());
-                        String error = t.getMessage().toString();
-                        Log.d("ErrorConnectAPI", t.getMessage());
-                    }
-                });
+                String error = t.getMessage().toString();
+                Log.d("ErrorConnectAPI", t.getMessage());
+            }
+        });
     }
 
-//    void showToast(String msg) {
-//        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
-//    } 2023-10-22 12:23:28.292 12528-12528 RoutesLiveData          com.example.coachticket              D  Dữ liệu thay đổi: [com.example.coachticket.models.Routes@5ad8503]
-
+    void showToast(String msg) {
+        Toast.makeText(context, msg, Toast.LENGTH_LONG).show();
+    }
 }
