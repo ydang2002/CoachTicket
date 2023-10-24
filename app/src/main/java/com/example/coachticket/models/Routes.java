@@ -1,8 +1,11 @@
 package com.example.coachticket.models;
 
+import android.os.Parcelable;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class Routes {
+public class Routes implements Serializable {
     private String _id;
     private List<Province> origin;
     private List<Province> destination;
