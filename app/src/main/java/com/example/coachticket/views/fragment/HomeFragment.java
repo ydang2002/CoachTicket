@@ -19,10 +19,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.coachticket.R;
+import com.example.coachticket.SharedPreferences.SharedPrefOriginDestination;
 import com.example.coachticket.SharedPreferences.SharedPreferencesUtil;
 import com.example.coachticket.databinding.FragmentHomeBinding;
 import com.example.coachticket.models.Routes;
 import com.example.coachticket.presenter.Presenter;
+import com.example.coachticket.viewmodels.ChooseCarrierViewModel;
 import com.example.coachticket.viewmodels.RoutesViewModel;
 import com.example.coachticket.views.activity.ChooseCarrierActivity;
 
@@ -33,6 +35,7 @@ public class HomeFragment extends Fragment {
 
     private FragmentHomeBinding fragmentHomeBinding;
     private RoutesViewModel routesViewModel;
+    private ChooseCarrierViewModel chooseCarrierViewModel;
     private TextView dateTextView;
     private ArrayList<Routes> routes;
     private String date, origin, destination;
@@ -44,8 +47,11 @@ public class HomeFragment extends Fragment {
         fragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
 //        routesViewModel = new ViewModelProvider(this).get(RoutesViewModel.class);
         routesViewModel = new ViewModelProvider(this).get(RoutesViewModel.class);
+//        chooseCarrierViewModel = new ViewModelProvider(this).get(ChooseCarrierViewModel.class);
         // Gán ViewModel cho DataBinding
         fragmentHomeBinding.setRoutesViewModel(routesViewModel);
+//        fragmentHomeBinding.setChooseCarrierViewModel(chooseCarrierViewModel);
+//        fragmentHomeBinding.setC
         // Đảm bảo rằng DataBinding có thể truy cập ViewModel
         fragmentHomeBinding.setLifecycleOwner(this);
         fragmentHomeBinding.setFragmentHome(this);
@@ -56,6 +62,10 @@ public class HomeFragment extends Fragment {
                 final String originDate = fragmentHomeBinding.originDate.getText().toString();
                 final String origin = (String) fragmentHomeBinding.spinnerOrigin.getSelectedItem();
                 final String destination = (String) fragmentHomeBinding.spinnerDestination.getSelectedItem();
+
+                SharedPrefOriginDestination.saveOrigin(getActivity(), origin);
+                SharedPrefOriginDestination.saveDestination(getActivity(), destination);
+                SharedPrefOriginDestination.saveDate(getActivity(), originDate);
 
                 if (origin.equals("Chọn điểm đi")) {
                     showToast("Vui lòng chọn điểm đi");
@@ -76,7 +86,7 @@ public class HomeFragment extends Fragment {
                 getActivity().startActivity(intent);
                 ((Activity) getActivity()).finish();
                 String token = SharedPreferencesUtil.getToken(requireContext());
-//                Log.d("TOKENLOGIN", "SharedPreferencesUtilToken22:" + token);
+//                Log.d("TOKENLOGINHOME", "SharedPreferencesUtilToken22:" + token);
 //                routesViewModel.getRoutes(token);
 //                routesViewModel.getRoutesProvinces(token);
 
@@ -124,6 +134,7 @@ public class HomeFragment extends Fragment {
                         date = dayOfMonth + "/" + (month + 1) + "/" + year;
 //                        fragmentHomeBinding.originDate.setText(date);
                         routesViewModel.setDate(dayOfMonth + "-" + (month + 1) + "-" + year);
+//                        chooseCarrierViewModel.setDate(dayOfMonth + "-" + (month + 1) + "-" + year);
                         Log.e("HienThiNgay: ", date);
                     }
                 }, year, month, day);

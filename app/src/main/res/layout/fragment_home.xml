@@ -11,6 +11,9 @@
         <variable
             name="FragmentHome"
             type="com.example.coachticket.views.fragment.HomeFragment" />
+        <variable
+            name="ChooseCarrierViewModel"
+            type="com.example.coachticket.viewmodels.ChooseCarrierViewModel" />
     </data>
 
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
