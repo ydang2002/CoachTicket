@@ -29,12 +29,12 @@ public class ChooseCarrierActivity extends AppCompatActivity {
 //        setContentView(activityChooseCarrierBinding.getRoot());
     }
 
-    private void disPlayListCarrier() {
-        adapter = new ChooseCarrierAdapter(routes);
-        RecyclerView rcvRoutes = activityChooseCarrierBinding.rcvCarrier;
-        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
-        rcvRoutes.setLayoutManager(linearLayoutManager);
-        rcvRoutes.setAdapter(adapter);
-
-    }
+//    private void disPlayListCarrier() {
+//        adapter = new ChooseCarrierAdapter(context, routes);
+//        RecyclerView rcvRoutes = activityChooseCarrierBinding.rcvCarrier;
+//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this);
+//        rcvRoutes.setLayoutManager(linearLayoutManager);
+//        rcvRoutes.setAdapter(adapter);
+//
+//    }
 }

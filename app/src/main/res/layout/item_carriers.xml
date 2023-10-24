@@ -47,7 +47,7 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="2dp"
                     android:layout_weight="1"
-                    android:text="An Sương" />
+                    android:text="@{Routes.origin[0].nameProvinces}" />
             </LinearLayout>
 
             <!-- Dòng thời gian và khoảng cách với đường gạch -->
@@ -94,7 +94,7 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="2dp"
                     android:layout_weight="1"
-                    android:text="An Nhơn" />
+                    android:text="@{Routes.destination[0].nameProvinces}" />
             </LinearLayout>
 
             <!-- Dòng giá tiền và số chỗ còn trống -->
@@ -108,7 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="0dp"
                     android:layout_weight="1"
-                    android:text="@{Routes.price}"
+                    android:text="@{String.valueOf(Routes.price)}"
                     android:textStyle="bold" />
 
                 <TextView
@@ -116,7 +116,7 @@
                     android:layout_height="0dp"
                     android:layout_marginTop="2dp"
                     android:layout_weight="1"
-                    android:text="@{Routes.trips[0].availableSeats}" />
+                    android:text="@{String.valueOf(Routes.trips[0].availableSeats)}" />
             </LinearLayout>
         </LinearLayout>
 
@@ -132,7 +132,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:text="Minh Hung"
+                android:text="@{Routes.carriers[0].name}"
                 android:textSize="15dp"
                 android:textStyle="bold" />
 
@@ -140,7 +140,7 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:paddingStart="122dp"
+                android:paddingStart="110dp"
                 android:text="Chi tiết"
                 android:textColor="@color/red"
                 android:textStyle="bold" />
