@@ -57,6 +57,12 @@ public class ChooseCarrierAdapter extends RecyclerView.Adapter<ChooseCarrierAdap
       notifyDataSetChanged();
    }
 
+   public void updateData(ArrayList<Routes> updatedList) {
+      mListRoutes.clear();
+      mListRoutes.addAll(updatedList);
+      notifyDataSetChanged();
+   }
+
    public class ChooseCarrierViewHolder extends RecyclerView.ViewHolder {
 
       private final ItemCarriersBinding itemCarriersBinding;
@@ -66,28 +72,4 @@ public class ChooseCarrierAdapter extends RecyclerView.Adapter<ChooseCarrierAdap
       }
 
    }
-
-//   private String originTime;
-//   private String destinationTime;
-//   private String nameProvincesOrigin;
-//   private String nameProvincesDestination;
-//   private String duration;
-//   private String distance;
-//   private String price;
-//   private String availableSeats;
-//   private String nameCarriers;
-//
-//   public ChooseCarrierAdapter(String originTime, String destinationTime, String nameProvincesOrigin,
-//                               String nameProvincesDestination, String duration, String distance,
-//                               String price, String availableSeats, String nameCarriers) {
-//      this.originTime = originTime;
-//      this.destinationTime = destinationTime;
-//      this.nameProvincesOrigin = nameProvincesOrigin;
-//      this.nameProvincesDestination = nameProvincesDestination;
-//      this.duration = duration;
-//      this.distance = distance;
-//      this.price = price;
-//      this.availableSeats = availableSeats;
-//      this.nameCarriers = nameCarriers;
-//   }
 }

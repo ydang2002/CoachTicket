@@ -2,8 +2,15 @@ package com.example.coachticket.viewmodels;
 
 import static androidx.core.content.ContentProviderCompat.requireContext;
 
+import android.annotation.SuppressLint;
+import android.app.Activity;
 import android.content.Context;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.ObservableField;
@@ -32,89 +39,124 @@ import retrofit2.Response;
 
 public class ChooseCarrierViewModel extends ViewModel/*BaseObservable*/ {
     private ChooseCarrierAdapter adapter;
+    private ActivityChooseCarrierBinding activityChooseCarrierBinding;
+    private Activity context;
     private ArrayList<Routes> mListRoutes;
+    private ArrayList<Routes> allRoutes;
     private ILoginService iLoginService;
     private RoutesResponse routesResponse;
-//    private MutableLiveData<String> selectedOrigin = new MutableLiveData<>();
-//    private MutableLiveData<String> selectedDestination = new MutableLiveData<>();
-//    public ObservableField<String> textViewDate = new ObservableField<>();
-//    private MutableLiveData<String> date = new MutableLiveData<>();
-//
-//    // Tạo một phương thức để lấy giá trị được chọn từ LiveData
-//    public LiveData<String> getSelectedOrigin() {
-//        return selectedOrigin;
-//    }
-//
-//    public LiveData<String> getSelectedDestination() {
-//        return selectedDestination;
-//    }
-//
-//    public void setSelectedOrigin(String value) {
-//        selectedOrigin.setValue(value);
-//    }
-//
-//    public void setSelectedDestination(String value) {
-//        selectedDestination.setValue(value);
-//    }
-//
-//    public LiveData<String> getDate() {
-//        return date;
-//    }
-//
-//    public void setDate(String date) {
-//        textViewDate.set(date);
-//    }
-//
 
-//    public ObservableField<String> textViewDate = new ObservableField<>();
-//    // Tạo phương thức để khởi tạo và trả về biến LiveData hoặc MutableLiveData
-//
-//    private MutableLiveData<String> date = new MutableLiveData<>();
-//    private MutableLiveData<String> selectedOrigin = new MutableLiveData<>();
-//    private MutableLiveData<String> selectedDestination = new MutableLiveData<>();
-//
-//
-//    public LiveData<String> getDate() {
-//        return date;
+    public ObservableField<String> searchText = new ObservableField<>("");
+
+    private MutableLiveData<List<Routes>> filteredRoutes = new MutableLiveData<>();
+
+    //    public ChooseCarrierViewModel(Context context, ActivityChooseCarrierBinding activityChooseCarrierBinding) {
+//        this.context = (Activity) context;
+//        mListRoutes = new ArrayList<>();
+//        adapter = new ChooseCarrierAdapter(context, mListRoutes);
+//        activityChooseCarrierBinding.rcvCarrier.setAdapter(adapter);
 //    }
+    public ArrayList<Routes> getMListRoutes() {
+        return mListRoutes;
+    }
+
+    public LiveData<List<Routes>> getFilteredRoutes() {
+        return filteredRoutes;
+    }
+
+//    public ChooseCarrierViewModel(Context context, ActivityChooseCarrierBinding activityChooseCarrierBinding) {
+//        mListRoutes = new ArrayList<>();
+//        allRoutes = new ArrayList<>();
+//        adapter = new ChooseCarrierAdapter(context, mListRoutes);
+//        activityChooseCarrierBinding.rcvCarrier.setAdapter(adapter);
+//        String origin = SharedPrefOriginDestination.getOrigin(context);
+//        String destination = SharedPrefOriginDestination.getDestination(context);
+//        String TVDate = SharedPrefOriginDestination.getDate(context);
+//        Log.d("selectedOrigin", "Selected destination value 2:" + origin);
+//        Log.d("selectedOrigin", "Selected destination value 3:" + destination);
+//        Log.d("selectedOrigin", "Selected destination value 4:" + TVDate);
+//        String token = SharedPreferencesUtil.getToken(context);
+//        Log.d("TOKENLOGINVIEWMODEL", "SharedPreferencesUtilTokenViewModel:" + token);
+//        iLoginService = ApiUtils.getApiService(token);
+//        iLoginService.getRoutesProvinces(origin, destination, TVDate)
+//                .enqueue(new Callback<RoutesResponse<Routes>>() {
+//                    @Override
+//                    public void onResponse(Call<RoutesResponse<Routes>> call, Response<RoutesResponse<Routes>> response) {
+//                        int statusCode = response.code();
+//                        System.out.println("Status code: " + statusCode);
+//                        Log.d("dataModelLiveData11", "Đã vào hàm");
+////                        progressBar.set(View.GONE);
+//                        try {
+//                            if (response.isSuccessful()) {
+//                                Log.d("dataModelLiveData12", "get api thành công");
+//                                routesResponse = response.body();
+////                                mListRoutes = (ArrayList<Routes>) routesResponse.getData();
+////                                adapter.notifyAdapter(mListRoutes);
+//                                allRoutes = (ArrayList<Routes>) routesResponse.getData(); // Cập nhật danh sách tất cả routes
+//                                mListRoutes.clear(); // Xóa danh sách hiển thị hiện tại
+//                                mListRoutes.addAll(allRoutes); // Sao chép toàn bộ danh sách tất cả routes vào danh sách hiển thị
+//                                Log.d("selectedOrigin", "routesResponse.getData:" + mListRoutes.toString());
+//                            } else {
+////                            showToast("Lỗi khi lấy dữ liệu từ API");
+//                            }
+//                        } catch (Exception e) {
+//                            Log.d("ExceptionOnResponse", e.getMessage());
+//                            System.out.println("Message ExceptionOnResponse: " + e.getMessage());
+//                        }
 //
-//    public void setDate(String date) {
-//        textViewDate.set(date);
-//    }
+//                    }
 //
-//    // Tạo một phương thức để lấy giá trị được chọn từ LiveData
-//    public LiveData<String> getSelectedOrigin() {
-//        return selectedOrigin;
-//    }
+//                    @Override
+//                    public void onFailure(Call<RoutesResponse<Routes>> call, Throwable t) {
+//                        try {
+//                            Log.d("dataModelLiveData13", "Lỗi kết nối API");
+//                            Log.d("ErrorConnectAPI", t.getMessage());
+//                        } catch (Exception e) {
+//                            Log.d("ExceptionOnFailure", e.getMessage());
+//                            System.out.println("Message ExceptionOnFailure: " + e.getMessage());
+//                        }
+//                    }
+//                });
 //
-//    public LiveData<String> getSelectedDestination() {
-//        return selectedDestination;
-//    }
+////        activityChooseCarrierBinding.nameInput.addTextChangedListener(new TextWatcher() {
+////            private String previousText = ""; // Biến trung gian để lưu trạng thái trước của EditText
+////            @Override
+////            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+////                // Lưu trạng thái trước khi thay đổi
+////                previousText = s.toString();
+////            }
+////
+////            @Override
+////            public void onTextChanged(CharSequence s, int start, int before, int count) {
+////                activityChooseCarrierBinding.getCarrierViewModel().performSearch();
+////            }
+////
+////            @Override
+////            public void afterTextChanged(Editable s) {
+////                // Lấy văn bản mới sau khi thay đổi
+//////                String newText = s.toString();
+//////
+//////                // Nếu văn bản mới khác văn bản trước đó, có sự thay đổi
+//////                if (!newText.equals(previousText)) {
+//////                    // Cập nhật danh sách dựa trên văn bản mới
+//////                    filterRoutes(newText);
+//////                } else {
+//////                    // Hiển thị toàn bộ danh sách nếu không có sự thay đổi
+//////                    viewModel.showAllRoutes();
+//////                }
+////            }
+////        });
 //
-//    public void setSelectedOrigin(String value) {
-//        selectedOrigin.setValue(value);
-//    }
 //
-//    public void setSelectedDestination(String value) {
-//        selectedDestination.setValue(value);
-//    }
-//
-//    public ChooseCarrierViewModel() {
-//        date = new MutableLiveData<>();
+//        SharedPrefOriginDestination.clearOrigin(context);
+//        SharedPrefOriginDestination.clearDestination(context);
+//        SharedPrefOriginDestination.clearDate(context);
 //    }
 
     public ChooseCarrierViewModel(Context context, ActivityChooseCarrierBinding activityChooseCarrierBinding) {
         mListRoutes = new ArrayList<>();
         adapter = new ChooseCarrierAdapter(context, mListRoutes);
         activityChooseCarrierBinding.rcvCarrier.setAdapter(adapter);
-//        RecyclerView rcvRoutes = activityChooseCarrierBinding.rcvCarrier;
-//        LinearLayoutManager linearLayoutManager = new LinearLayoutManager(context);
-//        rcvRoutes.setLayoutManager(linearLayoutManager);
-//        rcvRoutes.setAdapter(adapter);
-//        adapter.notifyDataSetChanged();
-//        String origin = selectedOrigin.getValue();
-//        String destination = selectedDestination.getValue();
-//        String TVDate = textViewDate.get();
         String origin = SharedPrefOriginDestination.getOrigin(context);
         String destination = SharedPrefOriginDestination.getDestination(context);
         String TVDate = SharedPrefOriginDestination.getDate(context);
@@ -124,7 +166,6 @@ public class ChooseCarrierViewModel extends ViewModel/*BaseObservable*/ {
         String token = SharedPreferencesUtil.getToken(context);
         Log.d("TOKENLOGINVIEWMODEL", "SharedPreferencesUtilTokenViewModel:" + token);
         iLoginService = ApiUtils.getApiService(token);
-//        iLoginService.getRoutesProvinces("AnGiang", "BacGiang", "25-10-2023")
         iLoginService.getRoutesProvinces(origin, destination, TVDate)
                 .enqueue(new Callback<RoutesResponse<Routes>>() {
                     @Override
@@ -139,6 +180,14 @@ public class ChooseCarrierViewModel extends ViewModel/*BaseObservable*/ {
                                 routesResponse = response.body();
                                 mListRoutes = (ArrayList<Routes>) routesResponse.getData();
                                 adapter.notifyAdapter(mListRoutes);
+                                if (mListRoutes.size() > 0) {
+                                    activityChooseCarrierBinding.rcvCarrier.setVisibility(View.VISIBLE);
+                                    activityChooseCarrierBinding.noCarrier.setVisibility(View.GONE);
+                                } else {
+                                    activityChooseCarrierBinding.rcvCarrier.setVisibility(View.GONE);
+                                    activityChooseCarrierBinding.noCarrier.setVisibility(View.VISIBLE);
+                                    adapter.notifyDataSetChanged();
+                                }
                                 Log.d("selectedOrigin", "routesResponse.getData:" + mListRoutes.toString());
                                 List<Routes> mRoutes3 = new ArrayList<>();
                                 mRoutes3 = routesResponse.getData();
@@ -156,9 +205,6 @@ public class ChooseCarrierViewModel extends ViewModel/*BaseObservable*/ {
                     public void onFailure(Call<RoutesResponse<Routes>> call, Throwable t) {
                         try {
                             Log.d("dataModelLiveData13", "Lỗi kết nối API");
-
-//                        progressBar.set(View.GONE);
-//                        showToast("Lỗi kết nối đến API: " + t.getMessage());
                             Log.d("ErrorConnectAPI", t.getMessage());
                         } catch (Exception e) {
                             Log.d("ExceptionOnFailure", e.getMessage());
@@ -167,8 +213,170 @@ public class ChooseCarrierViewModel extends ViewModel/*BaseObservable*/ {
                     }
                 });
 
+//        activityChooseCarrierBinding.nameInput.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                // Nothing to do here
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                activityChooseCarrierBinding.getCarrierViewModel().performSearch();
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                // Nothing to do here
+//            }
+//        });
+        searchFunc(activityChooseCarrierBinding.nameInput, activityChooseCarrierBinding.rcvCarrier,
+                activityChooseCarrierBinding.noCarrier);
+
         SharedPrefOriginDestination.clearOrigin(context);
         SharedPrefOriginDestination.clearDestination(context);
         SharedPrefOriginDestination.clearDate(context);
+    }
+
+    public void searchFunc(EditText nameInput, RecyclerView recyclerView, TextView noText) {
+        nameInput.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if (s.toString().trim().length() == 0) {
+                    if (mListRoutes.size() != 0) {
+                        recyclerView.setVisibility(View.VISIBLE);
+                        noText.setVisibility(View.GONE);
+                    } else {
+                        recyclerView.setVisibility(View.GONE);
+                        noText.setVisibility(View.VISIBLE);
+                    }
+
+                    adapter = new ChooseCarrierAdapter(context, mListRoutes);
+                    recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                } else {
+                    ArrayList<Routes> clone = new ArrayList<>();
+                    for (Routes route : mListRoutes) {
+                        for (int i = 0; i < route.getCarriers().size(); i++) {
+                            if (route.getCarriers().get(i).getName().toLowerCase().contains(s.toString().toLowerCase())) {
+                                // Nếu tìm thấy tên nhà xe phù hợp, thêm routes vào danh sách kết quả
+                                clone.add(route);
+                            }
+                        }
+                    }
+                    if (clone.size() != 0) {
+                        recyclerView.setVisibility(View.VISIBLE);
+                        noText.setVisibility(View.GONE);
+                    } else {
+                        recyclerView.setVisibility(View.GONE);
+                        noText.setVisibility(View.VISIBLE);
+                    }
+
+                    adapter = new ChooseCarrierAdapter(context, clone);
+                    recyclerView.setAdapter(adapter);
+                    adapter.notifyDataSetChanged();
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
+    }
+
+//    public void getArrayListCarrier() {
+//        String origin = SharedPrefOriginDestination.getOrigin(context);
+//        String destination = SharedPrefOriginDestination.getDestination(context);
+//        String TVDate = SharedPrefOriginDestination.getDate(context);
+//        Log.d("selectedOrigin", "Selected destination value 2:" + origin);
+//        Log.d("selectedOrigin", "Selected destination value 3:" + destination);
+//        Log.d("selectedOrigin", "Selected destination value 4:" + TVDate);
+//        String token = SharedPreferencesUtil.getToken(context);
+//        Log.d("TOKENLOGINVIEWMODEL", "SharedPreferencesUtilTokenViewModel:" + token);
+//        iLoginService = ApiUtils.getApiService(token);
+//        iLoginService.getRoutesProvinces(origin, destination, TVDate)
+//                .enqueue(new Callback<RoutesResponse<Routes>>() {
+//                    @Override
+//                    public void onResponse(Call<RoutesResponse<Routes>> call, Response<RoutesResponse<Routes>> response) {
+//                        int statusCode = response.code();
+//                        System.out.println("Status code: " + statusCode);
+//                        Log.d("dataModelLiveData11", "Đã vào hàm");
+////                        progressBar.set(View.GONE);
+//                        try {
+//                            if (response.isSuccessful()) {
+//                                Log.d("dataModelLiveData12", "get api thành công");
+//                                routesResponse = response.body();
+//                                mListRoutes = (ArrayList<Routes>) routesResponse.getData();
+//                                adapter.notifyAdapter(mListRoutes);
+//                                Log.d("selectedOrigin", "routesResponse.getData:" + mListRoutes.toString());
+//                                List<Routes> mRoutes3 = new ArrayList<>();
+//                                mRoutes3 = routesResponse.getData();
+//                            } else {
+////                            showToast("Lỗi khi lấy dữ liệu từ API");
+//                            }
+//                        } catch (Exception e) {
+//                            Log.d("ExceptionOnResponse", e.getMessage());
+//                            System.out.println("Message ExceptionOnResponse: " + e.getMessage());
+//                        }
+//
+//                    }
+//
+//                    @Override
+//                    public void onFailure(Call<RoutesResponse<Routes>> call, Throwable t) {
+//                        try {
+//                            Log.d("dataModelLiveData13", "Lỗi kết nối API");
+//                            Log.d("ErrorConnectAPI", t.getMessage());
+//                        } catch (Exception e) {
+//                            Log.d("ExceptionOnFailure", e.getMessage());
+//                            System.out.println("Message ExceptionOnFailure: " + e.getMessage());
+//                        }
+//                    }
+//                });
+//
+//        activityChooseCarrierBinding.nameInput.addTextChangedListener(new TextWatcher() {
+//            @Override
+//            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+//                // Nothing to do here
+//            }
+//
+//            @Override
+//            public void onTextChanged(CharSequence s, int start, int before, int count) {
+//                activityChooseCarrierBinding.getCarrierViewModel().performSearch();
+//            }
+//
+//            @Override
+//            public void afterTextChanged(Editable s) {
+//                // Nothing to do here
+//            }
+//        });
+//
+//
+//        SharedPrefOriginDestination.clearOrigin(context);
+//        SharedPrefOriginDestination.clearDestination(context);
+//        SharedPrefOriginDestination.clearDate(context);
+//    }
+
+    public void performSearch() {
+        String searchQuery = searchText.get();
+        if (searchQuery != null) {
+            List<Routes> filteredList = new ArrayList<>();
+            for (Routes route : mListRoutes) {
+                for (int i = 0; i < route.getCarriers().size(); i++) {
+                    if (route.getCarriers().get(i).getName().toLowerCase().contains(searchQuery.toLowerCase())) {
+                        // Nếu tìm thấy tên nhà xe phù hợp, thêm routes vào danh sách kết quả
+                        filteredList.add(route);
+                        break; // Thoát khỏi vòng lặp carriers vì đã tìm thấy kết quả
+                    }
+                }
+            }
+            mListRoutes.clear();
+            mListRoutes.addAll(filteredList);
+            adapter.notifyAdapter(mListRoutes);
+        }
     }
 }
