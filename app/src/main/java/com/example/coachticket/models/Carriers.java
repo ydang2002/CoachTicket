@@ -1,8 +1,14 @@
 package com.example.coachticket.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class Carriers {
+public class Carriers implements Parcelable {
     private String id;
     private String name;
     private List<String> info;
@@ -15,6 +21,24 @@ public class Carriers {
         this.name = name;
         this.info = info;
     }
+
+    protected Carriers(Parcel in) {
+        id = in.readString();
+        name = in.readString();
+        info = in.createStringArrayList();
+    }
+
+    public static final Creator<Carriers> CREATOR = new Creator<Carriers>() {
+        @Override
+        public Carriers createFromParcel(Parcel in) {
+            return new Carriers(in);
+        }
+
+        @Override
+        public Carriers[] newArray(int size) {
+            return new Carriers[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -38,5 +62,17 @@ public class Carriers {
 
     public void setInfo(List<String> info) {
         this.info = info;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(name);
+        parcel.writeStringList(info);
     }
 }

@@ -1,8 +1,14 @@
 package com.example.coachticket.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
+import java.io.Serializable;
 import java.util.List;
 
-public class Trip {
+public class Trip implements Parcelable {
     private String id;
     private String originTime;
     private String  destinationTime;
@@ -13,6 +19,38 @@ public class Trip {
 
     public Trip() {
     }
+
+    public Trip(String id, String originTime, String destinationTime, String originDate, String destinationDate, int availableSeats, List<Seat> seats) {
+        this.id = id;
+        this.originTime = originTime;
+        this.destinationTime = destinationTime;
+        this.originDate = originDate;
+        this.destinationDate = destinationDate;
+        this.availableSeats = availableSeats;
+        this.seats = seats;
+    }
+
+    protected Trip(Parcel in) {
+        id = in.readString();
+        originTime = in.readString();
+        destinationTime = in.readString();
+        originDate = in.readString();
+        destinationDate = in.readString();
+        availableSeats = in.readInt();
+        seats = in.createTypedArrayList(Seat.CREATOR);
+    }
+
+    public static final Parcelable.Creator<Trip> CREATOR = new Parcelable.Creator<Trip>() {
+        @Override
+        public Trip createFromParcel(Parcel in) {
+            return new Trip(in);
+        }
+
+        @Override
+        public Trip[] newArray(int size) {
+            return new Trip[size];
+        }
+    };
 
     public String getId() {
         return id;
@@ -68,5 +106,21 @@ public class Trip {
 
     public void setSeats(List<Seat> seats) {
         this.seats = seats;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(id);
+        parcel.writeString(originTime);
+        parcel.writeString(destinationTime);
+        parcel.writeString(originDate);
+        parcel.writeString(destinationDate);
+        parcel.writeInt(availableSeats);
+        parcel.writeTypedList(seats);
     }
 }

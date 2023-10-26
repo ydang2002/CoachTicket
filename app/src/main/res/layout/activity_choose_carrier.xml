@@ -1,18 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    >
 
     <data>
         <variable
             name="CarrierViewModel"
             type="com.example.coachticket.viewmodels.ChooseCarrierViewModel" />
+        <variable
+            name="CarrierActivity"
+            type="com.example.coachticket.views.activity.ChooseCarrierActivity" />
+        <variable
+            name="presenter"
+            type="com.example.coachticket.presenter.Presenter" />
     </data>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/colorPrimary">
+        android:background="@color/colorPrimary"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
 
         <RelativeLayout
             android:id="@+id/toolbar"
@@ -26,7 +33,7 @@
                 android:layout_height="24dp"
                 android:layout_centerVertical="true"
                 android:layout_marginStart="20dp"
-                android:onClick="goBack"
+                android:onClick="@{()-> presenter.goBack()}"
                 android:src="@drawable/ic_back_arrow"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:tint="@color/black" />

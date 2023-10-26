@@ -5,12 +5,14 @@ import static androidx.core.content.ContentProviderCompat.requireContext;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.databinding.BaseObservable;
 import androidx.databinding.ObservableField;
@@ -28,7 +30,9 @@ import com.example.coachticket.databinding.ActivityChooseCarrierBinding;
 import com.example.coachticket.models.Routes;
 import com.example.coachticket.response.RoutesResponse;
 import com.example.coachticket.views.activity.ChooseCarrierActivity;
+import com.example.coachticket.views.activity.SignUpActivity;
 import com.example.coachticket.views.adapter.ChooseCarrierAdapter;
+import com.example.coachticket.views.fragment.HomeFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -48,6 +52,8 @@ public class ChooseCarrierViewModel extends ViewModel/*BaseObservable*/ {
 
     public ObservableField<String> searchText = new ObservableField<>("");
 
+    public ChooseCarrierViewModel(ChooseCarrierActivity chooseCarrierActivity) {
+    }
     public ChooseCarrierViewModel(Context context, ActivityChooseCarrierBinding activityChooseCarrierBinding) {
         mListRoutes = new ArrayList<>();
         adapter = new ChooseCarrierAdapter(context, mListRoutes);
@@ -110,6 +116,12 @@ public class ChooseCarrierViewModel extends ViewModel/*BaseObservable*/ {
 
         searchFunc(activityChooseCarrierBinding.nameInput, activityChooseCarrierBinding.rcvCarrier,
                 activityChooseCarrierBinding.noCarrier);
+//        activityChooseCarrierBinding.cartBackArrow.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                intent();
+//            }
+//        });
 
         SharedPrefOriginDestination.clearOrigin(context);
         SharedPrefOriginDestination.clearDestination(context);
@@ -168,7 +180,12 @@ public class ChooseCarrierViewModel extends ViewModel/*BaseObservable*/ {
         });
     }
 
-    public void goBack(View view) {
-        ((Activity) context).finish();
+    public void intent() {
+//        Intent intent = new Intent(context, HomeFragment.class);
+//        context.startActivity(intent);
+//        context.finish();
+        Toast.makeText(context, "go back", Toast.LENGTH_LONG).show();
     }
+//    android:onClick="@{()-> presenter.goBack()}"
+
 }

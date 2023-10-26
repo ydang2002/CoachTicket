@@ -1,11 +1,14 @@
 package com.example.coachticket.models;
 
+import android.os.Parcel;
 import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
 
 import java.io.Serializable;
 import java.util.List;
 
-public class Routes implements Serializable {
+public class Routes implements Parcelable {
     private String _id;
     private List<Province> origin;
     private List<Province> destination;
@@ -30,6 +33,53 @@ public class Routes implements Serializable {
         this.trips = trips;
         this.carriers = carriers;
     }
+
+    // Constructor to read from Parcel
+    public Routes(Parcel in) {
+        // Read the fields from the Parcel
+        _id = in.readString();
+        origin = in.createTypedArrayList(Province.CREATOR);
+        destination = in.createTypedArrayList(Province.CREATOR);
+        distance = in.readString();
+        duration = in.readString();
+        price = in.readInt();
+        trips = in.createTypedArrayList(Trip.CREATOR);
+        carriers = in.createTypedArrayList(Carriers.CREATOR);
+    }
+
+
+    // Method to describe the contents of the Parcel
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    // Method to write to Parcel
+    @Override
+    public void writeToParcel(@NonNull Parcel dest, int i) {
+        // Write the fields to the Parcel
+        dest.writeString(_id);
+        dest.writeTypedList(origin);
+        dest.writeTypedList(destination);
+        dest.writeString(distance);
+        dest.writeString(duration);
+        dest.writeInt(price);
+        dest.writeTypedList(trips);
+        dest.writeTypedList(carriers);
+    }
+
+    // Creator to create Routes object from Parcel
+    public static final Parcelable.Creator<Routes> CREATOR = new Parcelable.Creator<Routes>() {
+        @Override
+        public Routes createFromParcel(Parcel source) {
+            return new Routes(source);
+        }
+
+        @Override
+        public Routes[] newArray(int size) {
+            return new Routes[size];
+        }
+    };
 
     public String get_id() {
         return _id;
