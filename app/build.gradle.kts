@@ -62,6 +62,10 @@ dependencies {
     implementation ("com.google.android.material:material:1.11.0-alpha03")
     implementation ("androidx.lifecycle:lifecycle-extensions:2.2.0")
 
+    implementation ("org.parceler:parceler-api:1.1.12")
+    annotationProcessor ("org.parceler:parceler:1.1.12")
+
+
 //    implementation ("android.arch.lifecycle:extensions:1.1.1")
 //    implementation ("android.arch.lifecycle:viewmodel:1.1.1")
 }
