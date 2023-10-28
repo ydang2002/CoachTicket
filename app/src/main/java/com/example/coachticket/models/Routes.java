@@ -144,4 +144,5 @@ public class Routes implements Parcelable {
     public void setCarriers(List<Carriers> carriers) {
         this.carriers = carriers;
     }
+
 }

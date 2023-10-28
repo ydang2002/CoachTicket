@@ -65,6 +65,9 @@ dependencies {
     implementation ("org.parceler:parceler-api:1.1.12")
     annotationProcessor ("org.parceler:parceler:1.1.12")
 
+    implementation ("androidx.cardview:cardview:1.0.0")
+
+
 
 //    implementation ("android.arch.lifecycle:extensions:1.1.1")
 //    implementation ("android.arch.lifecycle:viewmodel:1.1.1")
