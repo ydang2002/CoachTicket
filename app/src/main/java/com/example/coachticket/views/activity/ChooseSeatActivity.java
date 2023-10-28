@@ -2,23 +2,32 @@ package com.example.coachticket.views.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.GridLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.example.coachticket.R;
 import com.example.coachticket.databinding.ActivityChooseSeatBinding;
 import com.example.coachticket.models.Routes;
 import com.example.coachticket.models.Seat;
 import com.example.coachticket.viewmodels.ChooseSeatViewModel;
+import com.example.coachticket.views.adapter.ChooseSeatAdapter;
 
 import org.parceler.Parcels;
+
+import java.util.ArrayList;
 
 public class ChooseSeatActivity extends AppCompatActivity {
     private ChooseSeatViewModel chooseSeatViewModel;
     private ActivityChooseSeatBinding activityChooseSeatBinding;
     private Routes routes;
+    private RecyclerView recyclerViewGroup1, recyclerViewGroup2;
+    private ChooseSeatAdapter adapter1, adapter2;
+    private ArrayList<Seat> listSeat1, listSeat2;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -26,24 +35,17 @@ public class ChooseSeatActivity extends AppCompatActivity {
         chooseSeatViewModel = new ChooseSeatViewModel(this);
         activityChooseSeatBinding.setChooSeatViewModel(chooseSeatViewModel);
         Intent intent = getIntent();
-//        String id = (String) intent.getSerializableExtra("routesId");
-//        Log.d("GETID", routes.get_id());
         Routes routes = Parcels.unwrap(intent.getParcelableExtra("routes"));
-//        Seat seat = Parcels.unwrap(intent.getParcelableExtra("seat"));
-        if (routes == null) {
-            Log.d("GETroutes", "routes null null");
-        }
-//        if (seat == null) {
-//            Log.d("SEATNULL", "seat null null");
-//        }
-        Log.d("getDuration", routes.getDuration());
-//        Log.d("SEAT", seat.getId());
-//        for (Routes route : routes) {
-//            for (int i = 0; i < route.getCarriers().size(); i++) {
-//
-//            }
-//        Log.d("GETID", routes.getTrips());
+        ArrayList<Seat> seat1 = Parcels.unwrap(intent.getParcelableExtra("seat1"));
+        ArrayList<Seat> seat2 = Parcels.unwrap(intent.getParcelableExtra("seat2"));
 
+        adapter1 = new ChooseSeatAdapter(seat1, this);
+        adapter2 = new ChooseSeatAdapter(seat2, this);
+        activityChooseSeatBinding.recyclerViewGroup1.setLayoutManager(new GridLayoutManager(this, 3));
+        activityChooseSeatBinding.recyclerViewGroup2.setLayoutManager(new GridLayoutManager(this, 3));
+        activityChooseSeatBinding.recyclerViewGroup1.setAdapter(adapter1);
+        activityChooseSeatBinding.recyclerViewGroup2.setAdapter(adapter2);
+//        android:text="@{Seat.Id}"
         setContentView(activityChooseSeatBinding.getRoot());
     }
 }

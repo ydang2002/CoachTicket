@@ -51,21 +51,41 @@ public class ChooseCarrierAdapter extends RecyclerView.Adapter<ChooseCarrierAdap
         holder.itemCarriersBinding.setRoutes(routes);
 
 //        ArrayList<Seat> allSeat = new ArrayList<>();
-//        List<Seat> filteredList = new ArrayList<>();
-//        for (Seat seat : routes.getTrips().get(position).getSeats()) {
-//            for (int i = 0; i < routes.getTrips().size(); i++) {
+//        ArrayList<Seat> filteredList = new ArrayList<>();
+//        for (Seat seat : mListRoutes.get(position).getTrips().get(position).getSeats()) {
+//            for (int i = 0; i < mListRoutes.get(position).getTrips().size(); i++) {
 //                filteredList.add(seat);
 //            }
 //        }
 //        allSeat.clear();
 //        allSeat.addAll(filteredList);
+        int count = 0;
+        ArrayList<Seat> allSeat1 = new ArrayList<>();
+        ArrayList<Seat> allSeat2 = new ArrayList<>();
+        ArrayList<Seat> filteredList1 = new ArrayList<>();
+        ArrayList<Seat> filteredList2 = new ArrayList<>();
+        for (Seat seat : mListRoutes.get(position).getTrips().get(position).getSeats()) {
+            for (int i = 0; i < mListRoutes.get(position).getTrips().size(); i++) {
+                count ++;
+                if (count < 19) {
+                    filteredList1.add(seat);
+                } else {
+                    filteredList2.add(seat);
+                }
+            }
+        }
+        allSeat1.clear();
+        allSeat2.clear();
+        allSeat1.addAll(filteredList1);
+        allSeat2.addAll(filteredList2);
         holder.itemCarriersBinding.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ChooseSeatActivity.class);
                 intent.putExtra("routesId", routes.get_id());
                 intent.putExtra("routes", Parcels.wrap(routes));
-//                intent.putExtra("seat", Parcels.wrap(allSeat));
+                intent.putExtra("seat1", Parcels.wrap(allSeat1));
+                intent.putExtra("seat2", Parcels.wrap(allSeat2));
                 context.startActivity(intent);
             }
         });
