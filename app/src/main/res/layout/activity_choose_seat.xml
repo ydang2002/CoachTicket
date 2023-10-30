@@ -227,20 +227,21 @@
                 android:layout_marginBottom="15dp">
 
                 <TextView
+                    android:id="@+id/code_seat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="A12"
+                    android:text="@{ChooSeatViewModel.selectedSeatsText}"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
 
                 <TextView
-                    android:id="@+id/cart_total_price_view2"
+                    android:id="@+id/total_price_seat"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:text="285.000VND"
+                    android:text="@{ChooSeatViewModel.totalPrice}"
                     android:textColor="@color/black"
                     android:textSize="20sp"
                     android:textStyle="bold" />
