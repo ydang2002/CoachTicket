@@ -5,6 +5,9 @@
         <variable
             name="Seat"
             type="com.example.coachticket.models.Seat" />
+        <variable
+            name="ChooseViewModel"
+            type="com.example.coachticket.viewmodels.ChooseSeatViewModel" />
     </data>
 
     <LinearLayout

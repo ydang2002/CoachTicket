@@ -5,6 +5,7 @@ import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -13,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.example.coachticket.R;
 import com.example.coachticket.databinding.ItemSeatBinding;
 import com.example.coachticket.models.Seat;
+import com.example.coachticket.viewmodels.ChooseSeatViewModel;
 
 import java.util.ArrayList;
 
@@ -20,10 +22,12 @@ public class ChooseSeatAdapter extends RecyclerView.Adapter<ChooseSeatAdapter.Ch
 
     private ArrayList<Seat> mListSeat;
     private Activity context;
+    private ChooseSeatViewModel viewModel;
 
-    public ChooseSeatAdapter(ArrayList<Seat> mListSeat, Activity context) {
+    public ChooseSeatAdapter(ArrayList<Seat> mListSeat, Activity context, ChooseSeatViewModel viewModel) {
         this.mListSeat = mListSeat;
         this.context = context;
+        this.viewModel = viewModel;
     }
 
     @NonNull
@@ -43,7 +47,28 @@ public class ChooseSeatAdapter extends RecyclerView.Adapter<ChooseSeatAdapter.Ch
             holder.itemSeatBinding.buttonSeat.setBackgroundResource(R.color.grey);
             holder.itemSeatBinding.buttonSeat.setTextColor(Color.GRAY);
             holder.itemSeatBinding.buttonSeat.setText("");
+        } else {
+            if (viewModel.getSelectedSeats().contains(seat)) {
+                // Ghế đã chọn, hiển thị màu và chữ tương ứng
+                holder.itemSeatBinding.buttonSeat.setBackgroundResource(R.color.black);
+                holder.itemSeatBinding.buttonSeat.setTextColor(Color.WHITE);
+                holder.itemSeatBinding.buttonSeat.setText(seat.getId());
+            } else {
+                // Ghế chưa chọn
+//                holder.itemSeatBinding.buttonSeat.setBackgroundResource(R.color.white);
+                holder.itemSeatBinding.buttonSeat.setTextColor(Color.BLACK);
+//                holder.itemSeatBinding.buttonSeat.setText("");
+            }
         }
+
+        holder.itemSeatBinding.buttonSeat.setOnClickListener(v -> {
+            if (viewModel.getSelectedSeatCount().getValue() < 3 || viewModel.getSelectedSeats().contains(seat)) {
+                viewModel.onSeatSelected(seat);
+            } else {
+                Toast.makeText(context, "Bạn chỉ được chọn tối đa 3 ghế.", Toast.LENGTH_SHORT).show();
+            }
+            notifyItemChanged(position);
+        });
     }
 
     @Override
@@ -58,6 +83,16 @@ public class ChooseSeatAdapter extends RecyclerView.Adapter<ChooseSeatAdapter.Ch
         this.mListSeat = mListSeat;
         notifyDataSetChanged();
     }
+
+    public void updateSeatStatus(Seat seat) {
+        int position = mListSeat.indexOf(seat);
+        if (position != -1) {
+            Seat updatedSeat = mListSeat.get(position);
+            updatedSeat.setStatusSeat(!updatedSeat.getStatusSeat());
+            notifyItemChanged(position);
+        }
+    }
+
 
     public class ChooseSeatViewHolder extends RecyclerView.ViewHolder {
         private final ItemSeatBinding itemSeatBinding;
