@@ -26,21 +26,11 @@ public class ChooseSeatViewModel extends ViewModel {
     private final List<Seat> selectedSeats = new ArrayList<>();
     private MutableLiveData<Integer> selectedSeatCount = new MutableLiveData<>(0);
 
-//    public ChooseSeatAdapter getAdapter1() {
-//        return adapter1;
-//    }
-//
-//    public ChooseSeatAdapter getAdapter2() {
-//        return adapter2;
-//    }
+    public void initAdapters(ArrayList<Seat> seat1, ArrayList<Seat> seat2, Activity context) {
+        adapter1 = new ChooseSeatAdapter(seat1, context, this);
+        adapter2 = new ChooseSeatAdapter(seat2, context, this);
+    }
 
-//    public void initAdapter1(ArrayList<Seat> mListSeat, Activity context) {
-//        adapter1 = new ChooseSeatAdapter(mListSeat, context, this);
-//    }
-//
-//    public void initAdapter2(ArrayList<Seat> mListSeat, Activity context) {
-//        adapter2 = new ChooseSeatAdapter(mListSeat, context, this);
-//    }
     public LiveData<Integer> getSelectedSeatCount() {
         return selectedSeatCount;
     }
@@ -67,6 +57,8 @@ public class ChooseSeatViewModel extends ViewModel {
             // Bỏ chọn ghế nếu đã chọn
             selectedSeats.remove(seat);
             selectedSeatCount.setValue(selectedSeatCount.getValue() - 1);
+//            adapter1.updateSeatStatus(seat);
+//            adapter2.updateSeatStatus(seat);
         } else {
             // Chọn ghế nếu chưa chọn
             selectedSeats.add(seat);
@@ -81,6 +73,29 @@ public class ChooseSeatViewModel extends ViewModel {
 //        adapter1.updateSeatStatus(seat);
 //        adapter2.updateSeatStatus(seat);
     }
+
+//    public void onSeatSelected(Seat seat) {
+//        if (seat.isSelected()) {
+//            // Bỏ chọn ghế nếu đã chọn
+//            seat.setSelected(false);
+//            selectedSeats.remove(seat);
+//            selectedSeatCount.setValue(selectedSeatCount.getValue() - 1);
+//        } else {
+//            // Chọn ghế nếu chưa chọn
+//            seat.setSelected(true);
+//            selectedSeats.add(seat);
+//            selectedSeatCount.setValue(selectedSeatCount.getValue() + 1);
+//        }
+//
+//        // Cập nhật danh sách ghế đã chọn và tính tổng giá tiền
+//        updateSelectedSeatsText();
+//        updateTotalPrice();
+
+        // Gọi phương thức cập nhật trạng thái trong Adapter
+//        adapter1.notifyDataSetChanged();
+//        adapter2.notifyDataSetChanged();
+//    }
+
 
     private void updateSelectedSeatsText() {
         StringBuilder sb = new StringBuilder();

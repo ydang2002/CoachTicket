@@ -42,7 +42,7 @@ public class ChooseSeatActivity extends AppCompatActivity {
         activityChooseSeatBinding = DataBindingUtil.setContentView(this, R.layout.activity_choose_seat);
 //        chooseSeatViewModel = new ChooseSeatViewModel(this);
         chooseSeatViewModel = new ViewModelProvider(this).get(ChooseSeatViewModel.class);
-//        chooseSeatViewModel.initAdapter1(seat1, this);
+        chooseSeatViewModel.initAdapters(seat1, seat2, this);
 //        chooseSeatViewModel.initAdapter2(seat2, this);
         activityChooseSeatBinding.setChooSeatViewModel(chooseSeatViewModel);
         activityChooseSeatBinding.setLifecycleOwner(this);//thêm mới

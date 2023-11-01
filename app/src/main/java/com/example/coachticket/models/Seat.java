@@ -7,6 +7,8 @@ public class Seat implements Parcelable {
     private String id;
     private Boolean statusSeat;
 
+    private boolean isSelected;
+
     public Seat() {
     }
 
@@ -64,5 +66,13 @@ public class Seat implements Parcelable {
 
     public void setStatusSeat(Boolean statusSeat) {
         this.statusSeat = statusSeat;
+    }
+
+    public boolean isSelected() {
+        return isSelected;
+    }
+
+    public void setSelected(boolean selected) {
+        isSelected = selected;
     }
 }
