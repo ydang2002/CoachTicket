@@ -6,4 +6,5 @@ public class Presenter {
     public void getRoutesProvinces(){}
     public void goBack(){}
     public void intentSelectPickupAndDrop(){}
+    public void intentContactInfo(){}
 }
