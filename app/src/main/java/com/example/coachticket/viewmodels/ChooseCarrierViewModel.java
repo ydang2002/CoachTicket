@@ -53,6 +53,7 @@ public class ChooseCarrierViewModel extends ViewModel/*BaseObservable*/ {
     public ObservableField<String> searchText = new ObservableField<>("");
 
     public ChooseCarrierViewModel(ChooseCarrierActivity chooseCarrierActivity) {
+
     }
     public ChooseCarrierViewModel(Context context, ActivityChooseCarrierBinding activityChooseCarrierBinding) {
         mListRoutes = new ArrayList<>();
@@ -75,7 +76,7 @@ public class ChooseCarrierViewModel extends ViewModel/*BaseObservable*/ {
                         System.out.println("Status code: " + statusCode);
                         Log.d("dataModelLiveData11", "Đã vào hàm");
 //                        progressBar.set(View.GONE);
-                        try {
+//                        try {
                             if (response.isSuccessful()) {
                                 Log.d("dataModelLiveData12", "get api thành công");
                                 routesResponse = response.body();
@@ -95,10 +96,10 @@ public class ChooseCarrierViewModel extends ViewModel/*BaseObservable*/ {
                             } else {
 //                            showToast("Lỗi khi lấy dữ liệu từ API");
                             }
-                        } catch (Exception e) {
-                            Log.d("ExceptionOnResponse", e.getMessage());
-                            System.out.println("Message ExceptionOnResponse: " + e.getMessage());
-                        }
+//                        } catch (Exception e) {
+//                            Log.d("ExceptionOnResponse", e.getMessage());
+//                            System.out.println("Message ExceptionOnResponse: " + e.getMessage());
+//                        }
 
                     }
 

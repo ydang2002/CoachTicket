@@ -15,6 +15,9 @@
         android:theme="@style/Theme.CoachTicket"
         tools:targetApi="31">
         <activity
+            android:name=".views.activity.SelectPickUpPointActivity"
+            android:exported="false" />
+        <activity
             android:name=".views.activity.ChooseSeatActivity"
             android:exported="false" />
         <activity

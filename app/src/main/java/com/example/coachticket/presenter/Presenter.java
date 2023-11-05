@@ -5,4 +5,5 @@ public class Presenter {
     public void signUp(){}
     public void getRoutesProvinces(){}
     public void goBack(){}
+    public void intentSelectPickupAndDrop(){}
 }

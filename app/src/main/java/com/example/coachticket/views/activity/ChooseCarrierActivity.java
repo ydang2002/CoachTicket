@@ -42,6 +42,6 @@ public class ChooseCarrierActivity extends AppCompatActivity {
             }
         });
         activityChooseCarrierBinding.executePendingBindings();
-        setContentView(activityChooseCarrierBinding.getRoot());
+//        setContentView(activityChooseCarrierBinding.getRoot());
     }
 }

@@ -68,12 +68,25 @@ public class ChooseSeatAdapter extends RecyclerView.Adapter<ChooseSeatAdapter.Ch
                 Toast.makeText(context, "Bạn chỉ được chọn tối đa 3 ghế.", Toast.LENGTH_SHORT).show();
             }
             notifyItemChanged(position);
+//            if (viewModel.getSelectedSeatCount().getValue() < 3 || viewModel.getSelectedSeats().contains(seat)) {
+//                viewModel.onSeatSelected(seat);
+//                // Gọi lại notifyItemChanged để cập nhật màu nền cho ghế thứ 2
+//                if (viewModel.getSelectedSeats().contains(seat)) {
+//                    int positionOfSeat2 = mListSeat.indexOf(seat2); // Thay seat2 bằng ghế thứ 2
+//                    if (positionOfSeat2 != -1) {
+//                        notifyItemChanged(positionOfSeat2);
+//                    }
+//                }
+//            } else {
+//                Toast.makeText(context, "Bạn chỉ được chọn tối đa 3 ghế.", Toast.LENGTH_SHORT).show();
+//            }
+//            notifyItemChanged(position);
         });
     }
 
     @Override
     public int getItemCount() {
-        if(mListSeat != null) {
+        if (mListSeat != null) {
             return mListSeat.size();
         }
         return 0;
@@ -84,7 +97,7 @@ public class ChooseSeatAdapter extends RecyclerView.Adapter<ChooseSeatAdapter.Ch
         notifyDataSetChanged();
     }
 
-    public void updateSeatStatus(Seat seat) {
+    public void updateSeatStatus2(Seat seat) {
         int position = mListSeat.indexOf(seat);
         if (position != -1) {
             Seat updatedSeat = mListSeat.get(position);
@@ -93,9 +106,18 @@ public class ChooseSeatAdapter extends RecyclerView.Adapter<ChooseSeatAdapter.Ch
         }
     }
 
+    public void updateSeatStatus(Seat seat) {
+        int position = mListSeat.indexOf(seat);
+        if (position != -1) {
+            notifyItemChanged(position);
+        }
+    }
+
+
 
     public class ChooseSeatViewHolder extends RecyclerView.ViewHolder {
         private final ItemSeatBinding itemSeatBinding;
+
         public ChooseSeatViewHolder(@NonNull ItemSeatBinding itemSeatBinding) {
             super(itemSeatBinding.getRoot());
             this.itemSeatBinding = itemSeatBinding;
