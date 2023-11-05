@@ -33,12 +33,6 @@ public class ChooseCarrierActivity extends AppCompatActivity {
                 Intent intent = new Intent(ChooseCarrierActivity.this, LoginActivity.class);
                 ChooseCarrierActivity.this.startActivity(intent);
                 ((Activity) ChooseCarrierActivity.this).finish();
-//                FragmentManager fragmentManager = getSupportFragmentManager();
-//                FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-//                HomeFragment homeFragment = new HomeFragment();
-//                fragmentTransaction.replace(R.id.action_home, homeFragment);
-//                fragmentTransaction.addToBackStack(null); // Thêm vào stack để có thể quay lại
-//                fragmentTransaction.commit();
             }
         });
         activityChooseCarrierBinding.executePendingBindings();

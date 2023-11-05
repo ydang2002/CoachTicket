@@ -17,6 +17,7 @@ import com.example.coachticket.R;
 import com.example.coachticket.databinding.ActivitySelectPickUpPointBinding;
 import com.example.coachticket.models.Routes;
 import com.example.coachticket.models.Seat;
+import com.example.coachticket.presenter.Presenter;
 import com.example.coachticket.viewmodels.SelectPickUpPointViewModel;
 import com.example.coachticket.views.adapter.BindingAdapters;
 import com.example.coachticket.views.adapter.TabViewAdapter;
@@ -70,5 +71,13 @@ public class SelectPickUpPointActivity extends AppCompatActivity {
         tabLayout.setupWithViewPager(viewPager);
         MutableLiveData<String> text = (MutableLiveData<String>) viewModel.getRadioGroup1Value();
         Log.d("getRadioGroup1Value", String.valueOf(text));
+
+        binding.setPresenter(new Presenter() {
+            @Override
+            public void intentContactInfo() {
+                Intent intent = new Intent(SelectPickUpPointActivity.this, ContactInfoActivity.class);
+                startActivity(intent);
+            }
+        });
     }
 }

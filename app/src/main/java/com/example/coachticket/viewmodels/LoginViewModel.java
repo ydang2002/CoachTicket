@@ -12,6 +12,7 @@ import androidx.databinding.ObservableField;
 import androidx.databinding.ObservableInt;
 import androidx.lifecycle.ViewModel;
 
+import com.example.coachticket.SharedPreferences.SharedPrefUser;
 import com.example.coachticket.SharedPreferences.SharedPreferencesUtil;
 import com.example.coachticket.api.ILoginService;
 import com.example.coachticket.response.BaseResponse;
@@ -78,8 +79,15 @@ public class LoginViewModel extends ViewModel {
                     if (response.isSuccessful()) {
                         Log.e("loginreponse1", "đã vào hàm");
                         String token = response.body().getData().getToken();
+                        String name = response.body().getData().getName();
+                        String email = response.body().getData().getEmail();
+                        String phone = response.body().getData().getPhoneNumber();
                         // Lưu token vào SharedPreferences
                         SharedPreferencesUtil.saveToken(context, token);
+                        SharedPrefUser.savePhone(context, phone);
+                        SharedPrefUser.SaveName(context, name);
+                        SharedPrefUser.SaveEmail(context, email);
+
 //                    callback.onLoginSuccess("Đăng nhập thành công");
                         Intent intent = new Intent(context, MainActivity.class);
                         showToast("Đăng nhập thành công");
