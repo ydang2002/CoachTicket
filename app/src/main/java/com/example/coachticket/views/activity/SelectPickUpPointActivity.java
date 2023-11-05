@@ -61,8 +61,8 @@ public class SelectPickUpPointActivity extends AppCompatActivity {
         TabViewAdapter adapter = new TabViewAdapter(getSupportFragmentManager());
 //        TabViewAdapter2 adapter2 = new TabViewAdapter2(getSupportFragmentManager());
         // Thêm 2 tab với tên listLocation1 và listLocation2
-        adapter.addFragment(new TabViewFragment(), "listLocation1");
-        adapter.addFragment(new TabViewFragment2(), "listLocation2");
+        adapter.addFragment(new TabViewFragment(), "Điểm đón");
+        adapter.addFragment(new TabViewFragment2(), "Điểm trả");
         // Gán adapter cho viewPager
         viewPager.setAdapter(adapter);
         viewPager.setAdapter(adapter);
