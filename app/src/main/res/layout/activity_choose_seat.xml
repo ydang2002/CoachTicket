@@ -6,8 +6,14 @@
     <data>
 
         <variable
+            name="ChooseSeat"
+            type="com.example.coachticket.views.activity.ChooseSeatActivity" />
+        <variable
             name="ChooSeatViewModel"
             type="com.example.coachticket.viewmodels.ChooseSeatViewModel" />
+        <variable
+            name="presenter"
+            type="com.example.coachticket.presenter.Presenter" />
     </data>
 
     <LinearLayout
@@ -40,7 +46,6 @@
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="20dp"
-                        android:onClick="goBack"
                         android:src="@drawable/ic_back_arrow"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:tint="@color/black" />
@@ -255,6 +260,7 @@
                 android:layout_marginBottom="10dp"
                 android:background="@drawable/button_shape"
                 android:text="Tiếp tục"
+                android:onClick="@{()-> presenter.intentSelectPickupAndDrop()}"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 

@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.coachticket.R;
 import com.example.coachticket.databinding.ItemCarriersBinding;
+import com.example.coachticket.models.Carriers;
 import com.example.coachticket.models.Routes;
 import com.example.coachticket.models.Seat;
 import com.example.coachticket.views.activity.ChooseSeatActivity;
@@ -49,16 +50,6 @@ public class ChooseCarrierAdapter extends RecyclerView.Adapter<ChooseCarrierAdap
     public void onBindViewHolder(@NonNull ChooseCarrierViewHolder holder, int position) {
         Routes routes = mListRoutes.get(position);
         holder.itemCarriersBinding.setRoutes(routes);
-
-//        ArrayList<Seat> allSeat = new ArrayList<>();
-//        ArrayList<Seat> filteredList = new ArrayList<>();
-//        for (Seat seat : mListRoutes.get(position).getTrips().get(position).getSeats()) {
-//            for (int i = 0; i < mListRoutes.get(position).getTrips().size(); i++) {
-//                filteredList.add(seat);
-//            }
-//        }
-//        allSeat.clear();
-//        allSeat.addAll(filteredList);
         int count = 0;
         ArrayList<Seat> allSeat1 = new ArrayList<>();
         ArrayList<Seat> allSeat2 = new ArrayList<>();
@@ -78,6 +69,27 @@ public class ChooseCarrierAdapter extends RecyclerView.Adapter<ChooseCarrierAdap
         allSeat2.clear();
         allSeat1.addAll(filteredList1);
         allSeat2.addAll(filteredList2);
+
+        ArrayList<String> listLocation1 = new ArrayList<>();
+        ArrayList<String> list1 = new ArrayList<>();
+        for (String location1 : mListRoutes.get(position).getOrigin().get(position).getLocations()) {
+            for (int i = 0; i < mListRoutes.get(position).getOrigin().size(); i++) {
+               list1.add(location1);
+            }
+        }
+        listLocation1.clear();
+        listLocation1.addAll(list1);
+
+        ArrayList<String> listLocation2 = new ArrayList<>();
+        ArrayList<String> list2 = new ArrayList<>();
+        for (String location2 : mListRoutes.get(position).getDestination().get(position).getLocations()) {
+            for (int i = 0; i < mListRoutes.get(position).getDestination().size(); i++) {
+                list2.add(location2);
+            }
+        }
+        listLocation2.clear();
+        listLocation2.addAll(list2);
+
         holder.itemCarriersBinding.detail.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -86,6 +98,8 @@ public class ChooseCarrierAdapter extends RecyclerView.Adapter<ChooseCarrierAdap
                 intent.putExtra("routes", Parcels.wrap(routes));
                 intent.putExtra("seat1", Parcels.wrap(allSeat1));
                 intent.putExtra("seat2", Parcels.wrap(allSeat2));
+                intent.putExtra("listLocation1",listLocation1);
+                intent.putExtra("listLocation2",listLocation2);
                 context.startActivity(intent);
             }
         });
