@@ -9,6 +9,7 @@ import androidx.viewpager.widget.ViewPager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.RadioGroup;
 
@@ -45,6 +46,7 @@ public class SelectPickUpPointActivity extends AppCompatActivity {
         ArrayList<Seat> selectedSeats = getIntent().getParcelableArrayListExtra("selectedSeats");
         ArrayList<String> listLocation1 =  getIntent().getStringArrayListExtra("listLocation1");
         ArrayList<String> listLocation2 =  getIntent().getStringArrayListExtra("listLocation2");
+       int price = (int) getIntent().getSerializableExtra("price");
 
         binding = DataBindingUtil.setContentView(this, R.layout.activity_select_pick_up_point);
         viewModel = new ViewModelProvider(this).get(SelectPickUpPointViewModel.class);
@@ -69,15 +71,33 @@ public class SelectPickUpPointActivity extends AppCompatActivity {
         viewPager.setAdapter(adapter);
         // Đồng bộ tabLayout với viewPager
         tabLayout.setupWithViewPager(viewPager);
-        MutableLiveData<String> text = (MutableLiveData<String>) viewModel.getRadioGroup1Value();
-        Log.d("getRadioGroup1Value", String.valueOf(text));
+//        MutableLiveData<String> text = (MutableLiveData<String>) viewModel.getRadioGroup1Value();
+//        Log.d("getRadioGroup1Value", String.valueOf(text));
 
         binding.setPresenter(new Presenter() {
             @Override
             public void intentContactInfo() {
+                MutableLiveData<String> radioButton1 = (MutableLiveData<String>) viewModel.getRadioGroup1Value();
+                MutableLiveData<String> radioButton2 = (MutableLiveData<String>) viewModel.getRadioGroup2Value();
                 Intent intent = new Intent(SelectPickUpPointActivity.this, ContactInfoActivity.class);
+                intent.putParcelableArrayListExtra("selectedSeats", new ArrayList<>(selectedSeats));
+                intent.putExtra("routes", Parcels.wrap(routes));
+                intent.putExtra("radioButton1", (CharSequence) radioButton1.getValue());
+                intent.putExtra("radioButton2", (CharSequence) radioButton2.getValue());
+                intent.putExtra("price",price);
                 startActivity(intent);
             }
         });
+
+//        binding.setPresenter(new Presenter() {
+//            @Override
+//            public void goBackSelectPickUpPoint() {
+//                finish();
+//            }
+//        });
+    }
+
+    public void goBack(View view) {
+        finish();
     }
 }

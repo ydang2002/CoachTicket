@@ -10,6 +10,7 @@
     <color name="LoginBackground">#FFC107</color>
     <color name="text_color">#FF000000</color>
     <color name="colorPrimary">#e0e0e0</color>
+    <color name="colorPrimary3">#2FE0E0E0</color>
     <color name="colorPrimary2">#28E0E0E0</color>
     <color name="grey">#a9a9a9</color>
     <color name="red">#D53B3B</color>

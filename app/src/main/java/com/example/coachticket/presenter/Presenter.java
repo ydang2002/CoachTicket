@@ -7,4 +7,6 @@ public class Presenter {
     public void goBack(){}
     public void intentSelectPickupAndDrop(){}
     public void intentContactInfo(){}
+    public void intentInfoBookingSeat(){}
+    public void goBackSelectPickUpPoint(){}
 }

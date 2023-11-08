@@ -1,16 +1,23 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <data>
+        <variable
+            name="viewModel"
+            type="com.example.coachticket.viewmodels.InfoBookingSeatViewModel" />
+    </data>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
         android:weightSum="5">
 
-        <androidx.core.widget.NestedScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:background="@color/material_dynamic_neutral90"
+            android:background="@color/colorPrimary"
             android:layout_weight="4">
 
             <LinearLayout
@@ -30,6 +37,7 @@
                         android:layout_height="24dp"
                         android:layout_centerVertical="true"
                         android:layout_marginStart="20dp"
+                        android:onClick="goBack"
                         android:src="@drawable/ic_back_arrow"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:tint="@color/black" />
@@ -59,7 +67,7 @@
                         android:textStyle="bold"
                         android:textSize="20dp"
                         android:paddingBottom="5dp"
-                        android:layout_marginTop="10dp"/>
+                        />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -75,7 +83,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="20sp"
-                            android:text="Minh Hùng"/>
+                            android:text="@{viewModel.routesLiveData.carriers[0].name}"/>
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -90,7 +98,7 @@
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="A12, A13"/>
+                                android:text="@{viewModel.seatIds}"/>
                         </LinearLayout>
                     </LinearLayout>
 
@@ -115,12 +123,12 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="17:30"/>
+                                android:text="@{viewModel.routesLiveData.trips[0].originTime}"/>
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Ho Chi Minh"/>
+                                android:text="@{viewModel.routesLiveData.origin[0].nameProvinces}"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -133,12 +141,12 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="01/11/2023"/>
+                                android:text="@{viewModel.routesLiveData.trips[0].originDate}"/>
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Bến xe"/>
+                                android:text="@{viewModel.locationOrigin}"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -151,7 +159,7 @@
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:text="12h46"/>
+                                android:text="@{viewModel.routesLiveData.duration}"/>
                             <TextView
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
@@ -169,12 +177,12 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="6:30"/>
+                                android:text="@{viewModel.routesLiveData.trips[0].destinationTime}"/>
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Bình Thuận"/>
+                                android:text="@{viewModel.routesLiveData.destination[0].nameProvinces}"/>
                         </LinearLayout>
 
                         <LinearLayout
@@ -187,12 +195,12 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="01/11/2023"/>
+                                android:text="@{viewModel.routesLiveData.trips[0].destinationDate}"/>
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="Bến xe"/>
+                                android:text="@{viewModel.locationDestination}"/>
                         </LinearLayout>
                     </LinearLayout>
 
@@ -210,14 +218,14 @@
                         android:layout_marginTop="10dp"
                         android:paddingLeft="15dp"
                         android:paddingRight="15dp"
-                        android:paddingBottom="10dp"
+                        android:layout_marginBottom="10dp"
                         android:orientation="vertical"
                         android:background="@drawable/layout">
 
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="Nguyễn Vân An"
+                            android:text="@{viewModel.name}"
                             android:paddingTop="10dp"
                             android:paddingBottom="5dp"
                             android:textSize="20sp"
@@ -238,7 +246,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="0348387740"/>
+                                android:text="@{viewModel.phone}"/>
                         </LinearLayout>
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -255,7 +263,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="nguyen@gmail.com"/>
+                                android:text="@{viewModel.email}"/>
                         </LinearLayout>
 
                         <TextView
@@ -277,12 +285,13 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.2"
-                                android:text="1"/>
+                                android:text="@{@string/size_format(viewModel.size)}"/>
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="0.8"
-                                android:text="x   285.000đ"/>
+                                android:text="@{@string/price_format(viewModel.routesLiveData.price)}"
+                                />
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -292,12 +301,12 @@
                                 android:layout_width="0dp"
                                 android:layout_height="match_parent"
                                 android:layout_weight="1.5"
-                                android:text="285.000đ"/>
+                                android:text="@{@string/price_format(viewModel.price)}"/>
                         </LinearLayout>
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
-        </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -328,7 +337,7 @@
                     android:layout_height="wrap_content"
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
-                    android:text="285000đ"
+                    android:text="@{@string/price_format(viewModel.price)}"
                     android:textColor="@color/black"
                     android:textSize="20sp" />
             </RelativeLayout>
@@ -341,7 +350,6 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/button_shape"
                 android:text="Tiếp tục"
-                android:onClick="@{()-> presenter.intentSelectPickupAndDrop()}"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
 

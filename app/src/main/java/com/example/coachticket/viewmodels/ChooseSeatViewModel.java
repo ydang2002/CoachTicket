@@ -7,6 +7,8 @@ import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.example.coachticket.SharedPreferences.SharedPrefOriginDestination;
+import com.example.coachticket.SharedPreferences.SharedPrefUser;
 import com.example.coachticket.models.Seat;
 import com.example.coachticket.views.activity.ChooseSeatActivity;
 import com.example.coachticket.views.adapter.ChooseSeatAdapter;
@@ -17,8 +19,12 @@ import java.util.List;
 public class ChooseSeatViewModel extends ViewModel {
 
     private ChooseSeatAdapter adapter1, adapter2;
+//    private Context context;
+
+    private int price;
 
     public ChooseSeatViewModel() {
+
     }
 
     private final MutableLiveData<String> selectedSeatsText = new MutableLiveData<>();
@@ -45,6 +51,14 @@ public class ChooseSeatViewModel extends ViewModel {
 
     public List<Seat> getSelectedSeats() {
         return selectedSeats;
+    }
+
+    public int getPrice() {
+        return price;
+    }
+
+    public void setPrice(int price) {
+        this.price = price;
     }
 
     public void onSeatSelected(Seat seat) {
@@ -113,5 +127,10 @@ public class ChooseSeatViewModel extends ViewModel {
         int pricePerSeat = 285000; // Giá tiền mỗi ghế
         int total = selectedSeats.size() * pricePerSeat;
         totalPrice.setValue(String.format("%,d VND", total));
+        setPrice(total);
     }
+
+//    public void goBack() {
+//        ((Activity) context).finish();
+//    }
 }
