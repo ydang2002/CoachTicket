@@ -7,12 +7,15 @@ import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
 import com.example.coachticket.R;
+import com.example.coachticket.SharedPreferences.SharedPrefOriginDestination;
 import com.example.coachticket.databinding.ActivityChooseSeatBinding;
 import com.example.coachticket.models.Routes;
 import com.example.coachticket.models.Seat;
@@ -32,6 +35,9 @@ public class ChooseSeatActivity extends AppCompatActivity {
     private RecyclerView recyclerViewGroup1, recyclerViewGroup2;
     private ChooseSeatAdapter adapter1, adapter2;
     private ArrayList<Seat> listSeat1, listSeat2;
+
+    private Context context;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -61,15 +67,28 @@ public class ChooseSeatActivity extends AppCompatActivity {
         activityChooseSeatBinding.setPresenter(new Presenter() {
             @Override
             public void intentSelectPickupAndDrop() {
+                int price = chooseSeatViewModel.getPrice();
                 List<Seat> selectedSeats = chooseSeatViewModel.getSelectedSeats();
                 Intent intent = new Intent(ChooseSeatActivity.this, SelectPickUpPointActivity.class);
                 intent.putParcelableArrayListExtra("selectedSeats", new ArrayList<>(selectedSeats));
                 intent.putExtra("routes", Parcels.wrap(routes));
                 intent.putExtra("listLocation1",listLocation1);
                 intent.putExtra("listLocation2",listLocation2);
+                intent.putExtra("price",price);
                 startActivity(intent);
             }
         });
+
+//        activityChooseSeatBinding.setPresenter(new Presenter() {
+//            @Override
+//            public void goBackChooseSeat() {
+//                finish();
+//            }
+//        });
 //        setContentView(activityChooseSeatBinding.getRoot());
+    }
+
+    public void goback(View view) {
+        finish();
     }
 }
