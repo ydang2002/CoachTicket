@@ -79,6 +79,7 @@ public class LoginViewModel extends ViewModel {
                     if (response.isSuccessful()) {
                         Log.e("loginreponse1", "đã vào hàm");
                         String token = response.body().getData().getToken();
+                        String id = response.body().getData().get_id();
                         String name = response.body().getData().getName();
                         String email = response.body().getData().getEmail();
                         String phone = response.body().getData().getPhoneNumber();
@@ -87,6 +88,7 @@ public class LoginViewModel extends ViewModel {
                         SharedPrefUser.savePhone(context, phone);
                         SharedPrefUser.SaveName(context, name);
                         SharedPrefUser.SaveEmail(context, email);
+                        SharedPrefUser.SaveId(context, id);
 
 //                    callback.onLoginSuccess("Đăng nhập thành công");
                         Intent intent = new Intent(context, MainActivity.class);
