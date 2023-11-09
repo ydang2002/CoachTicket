@@ -1,5 +1,6 @@
 package com.example.coachticket.api;
 
+import com.example.coachticket.models.BookingSeat;
 import com.example.coachticket.models.Routes;
 import com.example.coachticket.response.BaseResponse;
 import com.example.coachticket.response.CheckUsernameAndEmailResponse;
@@ -50,4 +51,7 @@ public interface ILoginService {
 
     @GET("routes/f")
     Call<RoutesResponse<Routes>> getRoutes();
+
+    @POST("bookingSeat")
+    Call<BookingSeat> insertBookingSeat(@Body BookingSeat bookingSeat);
 }

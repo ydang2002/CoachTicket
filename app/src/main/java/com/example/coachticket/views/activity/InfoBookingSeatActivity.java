@@ -4,13 +4,14 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
 import com.example.coachticket.R;
-import com.example.coachticket.SharedPreferences.SharedPrefOriginDestination;
 import com.example.coachticket.SharedPreferences.SharedPrefUser;
+import com.example.coachticket.SharedPreferences.SharedPreferencesUtil;
 import com.example.coachticket.databinding.ActivityInfoBookingSeatBinding;
 import com.example.coachticket.models.Routes;
 import com.example.coachticket.models.Seat;
@@ -19,9 +20,6 @@ import com.example.coachticket.viewmodels.InfoBookingSeatViewModel;
 import org.parceler.Parcels;
 
 import java.util.ArrayList;
-import java.util.List;
-
-import okhttp3.Route;
 
 public class InfoBookingSeatActivity extends AppCompatActivity {
 
@@ -39,8 +37,15 @@ public class InfoBookingSeatActivity extends AppCompatActivity {
         String radioButton2 = getIntent().getStringExtra("radioButton2");
         int price = (int) getIntent().getSerializableExtra("price");
 
+        // Lấy đối tượng Context từ Activity
+        Context context = this;
+
         binding = DataBindingUtil.setContentView(this, R.layout.activity_info_booking_seat);
         viewModel = new ViewModelProvider(this).get(InfoBookingSeatViewModel.class);
+
+        viewModel.setContext(context);
+        //        viewModel = new InfoBookingSeatViewModel(this);
+//        binding.setViewModel(viewModel);
         viewModel.setRoutes(routes);
         viewModel.updateSeatIds(selectedSeats);
         viewModel.setLocationOrigin(radioButton1);
@@ -49,11 +54,16 @@ public class InfoBookingSeatActivity extends AppCompatActivity {
         String name = SharedPrefUser.getName(this);
         String email = SharedPrefUser.getEmail(this);
         String phone = SharedPrefUser.getPhone(this);
+        String token = SharedPreferencesUtil.getToken(this);
+        String id = SharedPrefUser.getId(this);
         viewModel.setName(name);
         viewModel.setEmail(email);
         viewModel.setPhone(phone);
         viewModel.setPrice(price);
         viewModel.setSize(selectedSeats.size());
+        viewModel.createBookingSeatDetails(selectedSeats);
+        viewModel.setId(id);
+        viewModel.setToken(token);
 
         // Liên kết ViewModel với DataBinding
         binding.setViewModel(viewModel);
@@ -63,4 +73,5 @@ public class InfoBookingSeatActivity extends AppCompatActivity {
     public void goBack(View view) {
         finish();
     }
+
 }

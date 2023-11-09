@@ -4,14 +4,22 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 public class SharedPrefUser {
+    private static final String ID = "IdPrefs";
     private static final String NAME = "NamePrefs";
     private static final String EMAIL = "EmailPrefs";
     private static final String PHONE = "PhonePrefs";
 
+    private static final String ID_KEY = "id";
     private static final String NAME_KEY = "name";
     private static final String EMAIL_KEY = "email";
     private static final String PHONE_KEY = "phone";
 
+    public static void SaveId(Context context, String origin) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(ID, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.putString(ID_KEY, origin);
+        editor.apply();
+    }
     public static void SaveName(Context context, String origin) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
@@ -33,6 +41,10 @@ public class SharedPrefUser {
         editor.apply();
     }
 
+    public static String getId(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(ID, Context.MODE_PRIVATE);
+        return sharedPreferences.getString(ID_KEY, null);
+    }
     public static String getName(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(NAME, Context.MODE_PRIVATE);
         return sharedPreferences.getString(NAME_KEY, null);
@@ -48,6 +60,12 @@ public class SharedPrefUser {
         return sharedPreferences.getString(PHONE_KEY, null);
     }
 
+    public static void clearId(Context context) {
+        SharedPreferences sharedPreferences = context.getSharedPreferences(ID, Context.MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPreferences.edit();
+        editor.remove(ID_KEY);
+        editor.apply();
+    }
     public static void clearName(Context context) {
         SharedPreferences sharedPreferences = context.getSharedPreferences(NAME, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = sharedPreferences.edit();
