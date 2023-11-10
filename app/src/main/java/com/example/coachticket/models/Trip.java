@@ -5,7 +5,6 @@ import android.os.Parcelable;
 
 import androidx.annotation.NonNull;
 
-import java.io.Serializable;
 import java.util.List;
 
 public class Trip implements Parcelable {
@@ -93,7 +92,7 @@ public class Trip implements Parcelable {
     }
 
     public int getAvailableSeats() {
-        return availableSeats;
+        return this.availableSeats;
     }
 
     public void setAvailableSeats(int availableSeats) {

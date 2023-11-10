@@ -23,8 +23,6 @@ import com.example.coachticket.models.Seat;
 import com.example.coachticket.models.Trip;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 
 import retrofit2.Call;
@@ -49,6 +47,7 @@ public class InfoBookingSeatViewModel extends ViewModel {
     private BookingSeat bookingSeat = new BookingSeat();
     private Context context;
     private MutableLiveData<String> errorMessage = new MutableLiveData<>();
+    private Routes routes = new Routes();
 
     public void
 
@@ -159,6 +158,7 @@ public class InfoBookingSeatViewModel extends ViewModel {
 
     public void insertBookingSeat(/*BookingSeat bookingSeat Context context*/) {
 //        bookingSeat = new BookingSeat();
+        updateSeat();
         bookingSeat.setCustomerId(getId());
         bookingSeat.setTotalSeats(getSize());
         bookingSeat.setTotalPrice(getPrice());
@@ -215,17 +215,28 @@ public class InfoBookingSeatViewModel extends ViewModel {
         route.setPrice(routesLiveData.getValue().getPrice());
 
         //set trips
+//        Trip trips = new Trip();
+//        for (Trip trip : routesLiveData.getValue().getTrips()) {
+//            String originTime = trip.getOriginTime();
+//            String destinationTime = trip.getDestinationTime();
+//            String originDate = trip.getOriginDate();
+//            String destinationDate = trip.getDestinationDate();
+//            trips.setOriginTime(originTime);
+//            trips.setDestinationTime(destinationTime);
+//            trips.setOriginDate(originDate);
+//            trips.setDestinationDate(destinationDate);
+//        }
+//        route.setTrips(trips);
+
         Trip trips = new Trip();
-        for (Trip trip : routesLiveData.getValue().getTrips()) {
-            String originTime = trip.getOriginTime();
-            String destinationTime = trip.getDestinationTime();
-            String originDate = trip.getOriginDate();
-            String destinationDate = trip.getDestinationDate();
+            String originTime = routesLiveData.getValue().getTrips().getOriginTime();
+            String destinationTime = routesLiveData.getValue().getTrips().getDestinationTime();
+            String originDate = routesLiveData.getValue().getTrips().getOriginDate();
+            String destinationDate = routesLiveData.getValue().getTrips().getDestinationDate();
             trips.setOriginTime(originTime);
             trips.setDestinationTime(destinationTime);
             trips.setOriginDate(originDate);
             trips.setDestinationDate(destinationDate);
-        }
         route.setTrips(trips);
 
         //set carriers
@@ -261,5 +272,62 @@ public class InfoBookingSeatViewModel extends ViewModel {
 //        return bookingSeatDetails;
     }
 
+    public void updateSeat() {
 
+        Trip trips = new Trip();
+        String originTime = routesLiveData.getValue().getTrips().getOriginTime();
+        String destinationTime = routesLiveData.getValue().getTrips().getDestinationTime();
+        String originDate = routesLiveData.getValue().getTrips().getOriginDate();
+        String destinationDate = routesLiveData.getValue().getTrips().getDestinationDate();
+        List<Seat> seats = routesLiveData.getValue().getTrips().getSeats();
+        int availableSeats = routesLiveData.getValue().getTrips().getAvailableSeats() - getSize();
+        trips.setOriginTime(originTime);
+        trips.setDestinationTime(destinationTime);
+        trips.setOriginDate(originDate);
+        trips.setDestinationDate(destinationDate);
+        trips.setSeats(seats);
+        trips.setAvailableSeats(availableSeats);
+
+        routes.setTrips(trips);
+        routes.setId(routesLiveData.getValue().get_id());
+        routes.setPrice(routesLiveData.getValue().getPrice());
+
+        String token1 = SharedPreferencesUtil.getToken(context);
+        iLoginService = ApiUtils.getApiService(token1);
+        iLoginService.updateSeat(routes).enqueue(new Callback<Routes>() {
+            @Override
+            public void onResponse(Call<Routes> call, Response<Routes> response) {
+                if (response.isSuccessful()) {
+                    Toast.makeText(getContext(), "update thành công", Toast.LENGTH_SHORT).show();
+                } else {
+                    errorMessage.setValue("Error update booking seat: " + response.errorBody().toString());
+                    Toast.makeText(getContext(), "update không thành công"+ response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                    Log.d("ERRORUpdate", response.errorBody().toString());
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Routes> call, Throwable t) {
+                Toast.makeText(getContext(), "update thất bại", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+    }
+
+//    // Phương thức để cập nhật statusSeat
+//    public void updateStatusSeats(ArrayList<Seat> selectedSeats) {
+//        Routes routes = routesLiveData.getValue();
+//        if (routes != null) {
+//            for (Trip trip : routes.getTrips()) {
+//                for (Seat seat : trip.getSeats()) {
+//                    for (Seat selectedSeat : selectedSeats) {
+//                        if (seat.getId().equals(selectedSeat.getId())) {
+//                            seat.setStatusSeat(selectedSeat.isStatusSeat());
+//                        }
+//                    }
+//                }
+//            }
+//            routesLiveData.setValue(routes);
+//        }
+//    }
 }

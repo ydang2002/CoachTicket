@@ -123,7 +123,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="@{viewModel.routesLiveData.trips[0].originTime}"/>
+                                android:text="@{viewModel.routesLiveData.trips.originTime}"/>
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -141,7 +141,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="@{viewModel.routesLiveData.trips[0].originDate}"/>
+                                android:text="@{viewModel.routesLiveData.trips.originDate}"/>
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -177,7 +177,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="@{viewModel.routesLiveData.trips[0].destinationTime}"/>
+                                android:text="@{viewModel.routesLiveData.trips.destinationTime}"/>
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
@@ -195,7 +195,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="@{viewModel.routesLiveData.trips[0].destinationDate}"/>
+                                android:text="@{viewModel.routesLiveData.trips.destinationDate}"/>
                             <TextView
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"

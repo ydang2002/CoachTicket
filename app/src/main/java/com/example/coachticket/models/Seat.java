@@ -75,4 +75,8 @@ public class Seat implements Parcelable {
     public void setSelected(boolean selected) {
         isSelected = selected;
     }
+
+    public boolean isStatusSeat() {
+        return statusSeat;
+    }
 }

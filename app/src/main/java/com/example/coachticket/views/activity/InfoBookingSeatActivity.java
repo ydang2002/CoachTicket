@@ -15,6 +15,7 @@ import com.example.coachticket.SharedPreferences.SharedPreferencesUtil;
 import com.example.coachticket.databinding.ActivityInfoBookingSeatBinding;
 import com.example.coachticket.models.Routes;
 import com.example.coachticket.models.Seat;
+import com.example.coachticket.models.Trip;
 import com.example.coachticket.viewmodels.InfoBookingSeatViewModel;
 
 import org.parceler.Parcels;
@@ -37,6 +38,34 @@ public class InfoBookingSeatActivity extends AppCompatActivity {
         String radioButton2 = getIntent().getStringExtra("radioButton2");
         int price = (int) getIntent().getSerializableExtra("price");
 
+        // Lặp qua danh sách trips trong routes
+//        for (Trip trip : routes.getTrips()) {
+//            // Lặp qua danh sách seats trong từng trip
+//            for (Seat seat : trip.getSeats()) {
+//                // Lặp qua danh sách selectedSeats để tìm seat có cùng id
+//                for (Seat selectedSeat : selectedSeats) {
+//                    // Nếu id trùng khớp, cập nhật statusSeat
+//                    if (seat.getId().equals(selectedSeat.getId())) {
+//                        seat.setStatusSeat(selectedSeat.isStatusSeat());
+//                        break; // Kết thúc vòng lặp khi đã tìm thấy trùng khớp
+//                    }
+//                }
+//            }
+//        }
+
+        // Duyệt qua từng phần tử trong selectedSeats
+        for (Seat selectedSeat : selectedSeats) {
+            // Duyệt qua danh sách seats trong trips của routes
+            for (Seat seat : routes.getTrips().getSeats()) {
+                // So sánh id của seat trong routes với id của selectedSeat
+                if (seat.getId().equals(selectedSeat.getId())) {
+                    // Cập nhật trạng thái của seat trong routes bằng trạng thái của selectedSeat
+                    seat.setStatusSeat(true);
+                    break; // Dừng vòng lặp khi tìm thấy phần tử tương ứng
+                }
+            }
+        }
+
         // Lấy đối tượng Context từ Activity
         Context context = this;
 
@@ -50,6 +79,7 @@ public class InfoBookingSeatActivity extends AppCompatActivity {
         viewModel.updateSeatIds(selectedSeats);
         viewModel.setLocationOrigin(radioButton1);
         viewModel.setLocationDestination(radioButton2);
+//        viewModel.updateStatusSeats(selectedSeats);
 
         String name = SharedPrefUser.getName(this);
         String email = SharedPrefUser.getEmail(this);

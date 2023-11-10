@@ -10,21 +10,23 @@ import java.util.List;
 
 public class Routes implements Parcelable {
     private String _id;
+    private String id;
     private List<Province> origin;
     private List<Province> destination;
 
     private String distance;
     private String duration;
     private int price;
-    private List<Trip> trips;
+    private Trip trips;
     private List<Carriers> carriers;
 
     public Routes() {
     }
 
-    public Routes(String _id, List<Province> origin, List<Province> destination, String distance,
-                  String duration, int price, List<Trip> trips, List<Carriers> carriers) {
+    public Routes(String _id, String id, List<Province> origin, List<Province> destination, String distance,
+                  String duration, int price, Trip trips, List<Carriers> carriers) {
         this._id = _id;
+        this.id = id;
         this.origin = origin;
         this.destination = destination;
         this.distance = distance;
@@ -43,7 +45,8 @@ public class Routes implements Parcelable {
         distance = in.readString();
         duration = in.readString();
         price = in.readInt();
-        trips = in.createTypedArrayList(Trip.CREATOR);
+//        trips = in.createTypedArrayList(Trip.CREATOR);
+        trips = in.readTypedObject(Trip.CREATOR);
         carriers = in.createTypedArrayList(Carriers.CREATOR);
     }
 
@@ -64,7 +67,8 @@ public class Routes implements Parcelable {
         dest.writeString(distance);
         dest.writeString(duration);
         dest.writeInt(price);
-        dest.writeTypedList(trips);
+//        dest.writeTypedList(trips);
+        dest.writeTypedObject(trips, i);
         dest.writeTypedList(carriers);
     }
 
@@ -129,11 +133,11 @@ public class Routes implements Parcelable {
         this.price = price;
     }
 
-    public List<Trip> getTrips() {
+    public Trip getTrips() {
         return trips;
     }
 
-    public void setTrips(List<Trip> trips) {
+    public void setTrips(Trip trips) {
         this.trips = trips;
     }
 
@@ -145,4 +149,11 @@ public class Routes implements Parcelable {
         this.carriers = carriers;
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 }

@@ -52,16 +52,25 @@ public class ChooseSeatActivity extends AppCompatActivity {
         ArrayList<Seat> filteredList1 = new ArrayList<>();
         ArrayList<Seat> filteredList2 = new ArrayList<>();
 
-        if (!routes.getTrips().get(0).getSeats().isEmpty()) {
-            for (Seat seat : routes.getTrips().get(0).getSeats()) {
-                for (int i = 0; i < routes.getTrips().size(); i++) {
+//        if (!routes.getTrips().get(0).getSeats().isEmpty()) {
+//            for (Seat seat : routes.getTrips().get(0).getSeats()) {
+//                for (int i = 0; i < routes.getTrips().size(); i++) {
+//                    if (count < 18) {
+//                        filteredList1.add(seat);
+//                        count++;
+//                    } else {
+//                        filteredList2.add(seat);
+//                    }
+//                }
+//            }
+        if (!routes.getTrips().getSeats().isEmpty()) {
+            for (Seat seat : routes.getTrips().getSeats()) {
                     if (count < 18) {
                         filteredList1.add(seat);
                         count++;
                     } else {
                         filteredList2.add(seat);
                     }
-                }
             }
             allSeat1.clear();
             allSeat2.clear();
