@@ -116,7 +116,7 @@ public class ChooseCarrierAdapter extends RecyclerView.Adapter<ChooseCarrierAdap
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, ChooseSeatActivity.class);
-                intent.putExtra("routesId", routes.get_id());
+//                intent.putExtra("routesId", routes.get_id());
                 intent.putExtra("routes", Parcels.wrap(routes));
                 intent.putExtra("position", position1);
 //                intent.putExtra("seat1", Parcels.wrap(allSeat1));
