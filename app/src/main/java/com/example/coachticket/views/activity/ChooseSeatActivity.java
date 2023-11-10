@@ -44,21 +44,65 @@ public class ChooseSeatActivity extends AppCompatActivity {
 
         Intent intent = getIntent();
         Routes routes = Parcels.unwrap(intent.getParcelableExtra("routes"));
-        ArrayList<Seat> seat1 = Parcels.unwrap(intent.getParcelableExtra("seat1"));
-        ArrayList<Seat> seat2 = Parcels.unwrap(intent.getParcelableExtra("seat2"));
-        ArrayList<String> listLocation1 =  getIntent().getStringArrayListExtra("listLocation1");
-        ArrayList<String> listLocation2 =  getIntent().getStringArrayListExtra("listLocation2");
+        int position = (int) getIntent().getSerializableExtra("position");
+
+        int count = 0;
+        ArrayList<Seat> allSeat1 = new ArrayList<>();
+        ArrayList<Seat> allSeat2 = new ArrayList<>();
+        ArrayList<Seat> filteredList1 = new ArrayList<>();
+        ArrayList<Seat> filteredList2 = new ArrayList<>();
+
+        if (!routes.getTrips().get(0).getSeats().isEmpty()) {
+            for (Seat seat : routes.getTrips().get(0).getSeats()) {
+                for (int i = 0; i < routes.getTrips().size(); i++) {
+                    if (count < 18) {
+                        filteredList1.add(seat);
+                        count++;
+                    } else {
+                        filteredList2.add(seat);
+                    }
+                }
+            }
+            allSeat1.clear();
+            allSeat2.clear();
+            allSeat1.addAll(filteredList1);
+            allSeat2.addAll(filteredList2);
+        }
+
+
+        ArrayList<String> listLocation1 = new ArrayList<>();
+        ArrayList<String> list1 = new ArrayList<>();
+        for (String location1 : routes.getOrigin().get(0).getLocations()) {
+            for (int i = 0; i < routes.getOrigin().size(); i++) {
+                list1.add(location1);
+            }
+        }
+        listLocation1.clear();
+        listLocation1.addAll(list1);
+
+        ArrayList<String> listLocation2 = new ArrayList<>();
+        ArrayList<String> list2 = new ArrayList<>();
+        for (String location2 : routes.getDestination().get(0).getLocations()) {
+            for (int i = 0; i < routes.getDestination().size(); i++) {
+                list2.add(location2);
+            }
+        }
+        listLocation2.clear();
+        listLocation2.addAll(list2);
+
+//        ArrayList<Seat> seat1 = Parcels.unwrap(intent.getParcelableExtra("seat1"));
+//        ArrayList<Seat> seat2 = Parcels.unwrap(intent.getParcelableExtra("seat2"));
+//        ArrayList<String> listLocation1 =  getIntent().getStringArrayListExtra("listLocation1");
+//        ArrayList<String> listLocation2 =  getIntent().getStringArrayListExtra("listLocation2");
 
         activityChooseSeatBinding = DataBindingUtil.setContentView(this, R.layout.activity_choose_seat);
-//        chooseSeatViewModel = new ChooseSeatViewModel(this);
         chooseSeatViewModel = new ViewModelProvider(this).get(ChooseSeatViewModel.class);
-        chooseSeatViewModel.initAdapters(seat1, seat2, this);
-//        chooseSeatViewModel.initAdapter2(seat2, this);
+        chooseSeatViewModel.initAdapters(allSeat1, allSeat2, this);
         activityChooseSeatBinding.setChooSeatViewModel(chooseSeatViewModel);
         activityChooseSeatBinding.setLifecycleOwner(this);//thêm mới
 
-        adapter1 = new ChooseSeatAdapter(seat1, this, chooseSeatViewModel);
-        adapter2 = new ChooseSeatAdapter(seat2, this, chooseSeatViewModel);
+        adapter1 = new ChooseSeatAdapter(allSeat1, this, chooseSeatViewModel);
+        adapter2 = new ChooseSeatAdapter(allSeat2, this, chooseSeatViewModel);
         activityChooseSeatBinding.recyclerViewGroup1.setLayoutManager(new GridLayoutManager(this, 3));
         activityChooseSeatBinding.recyclerViewGroup2.setLayoutManager(new GridLayoutManager(this, 3));
         activityChooseSeatBinding.recyclerViewGroup1.setAdapter(adapter1);
@@ -72,20 +116,12 @@ public class ChooseSeatActivity extends AppCompatActivity {
                 Intent intent = new Intent(ChooseSeatActivity.this, SelectPickUpPointActivity.class);
                 intent.putParcelableArrayListExtra("selectedSeats", new ArrayList<>(selectedSeats));
                 intent.putExtra("routes", Parcels.wrap(routes));
-                intent.putExtra("listLocation1",listLocation1);
-                intent.putExtra("listLocation2",listLocation2);
-                intent.putExtra("price",price);
+                intent.putExtra("listLocation1", listLocation1);
+                intent.putExtra("listLocation2", listLocation2);
+                intent.putExtra("price", price);
                 startActivity(intent);
             }
         });
-
-//        activityChooseSeatBinding.setPresenter(new Presenter() {
-//            @Override
-//            public void goBackChooseSeat() {
-//                finish();
-//            }
-//        });
-//        setContentView(activityChooseSeatBinding.getRoot());
     }
 
     public void goback(View view) {

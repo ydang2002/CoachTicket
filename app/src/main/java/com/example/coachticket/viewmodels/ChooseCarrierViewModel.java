@@ -53,10 +53,10 @@ public class ChooseCarrierViewModel extends ViewModel/*BaseObservable*/ {
     public ObservableField<String> searchText = new ObservableField<>("");
 
     public ChooseCarrierViewModel(ChooseCarrierActivity chooseCarrierActivity) {
-
     }
+
     public ChooseCarrierViewModel(Context context, ActivityChooseCarrierBinding activityChooseCarrierBinding) {
-        mListRoutes = new ArrayList<>();
+        mListRoutes = new ArrayList<Routes>();
         adapter = new ChooseCarrierAdapter(context, mListRoutes);
         activityChooseCarrierBinding.rcvCarrier.setAdapter(adapter);
         String origin = SharedPrefOriginDestination.getOrigin(context);
@@ -80,7 +80,10 @@ public class ChooseCarrierViewModel extends ViewModel/*BaseObservable*/ {
                             if (response.isSuccessful()) {
                                 Log.d("dataModelLiveData12", "get api thành công");
                                 routesResponse = response.body();
+                                List<Routes> mRoutes3 = new ArrayList<>();
+                                mRoutes3 = routesResponse.getData();
                                 mListRoutes = (ArrayList<Routes>) routesResponse.getData();
+//                                mListRoutes.add((Routes) routesResponse.getData());
                                 adapter.notifyAdapter(mListRoutes);
                                 if (mListRoutes.size() > 0) {
                                     activityChooseCarrierBinding.rcvCarrier.setVisibility(View.VISIBLE);
@@ -91,8 +94,6 @@ public class ChooseCarrierViewModel extends ViewModel/*BaseObservable*/ {
                                     adapter.notifyDataSetChanged();
                                 }
                                 Log.d("selectedOrigin", "routesResponse.getData:" + mListRoutes.toString());
-                                List<Routes> mRoutes3 = new ArrayList<>();
-                                mRoutes3 = routesResponse.getData();
                             } else {
 //                            showToast("Lỗi khi lấy dữ liệu từ API");
                             }
