@@ -3,6 +3,7 @@ package com.example.coachticket.api;
 import com.example.coachticket.models.BookingSeat;
 import com.example.coachticket.models.Routes;
 import com.example.coachticket.response.BaseResponse;
+import com.example.coachticket.response.BookingSeatResponse;
 import com.example.coachticket.response.CheckUsernameAndEmailResponse;
 import com.example.coachticket.response.LoginBodyResponse;
 import com.example.coachticket.models.User;
@@ -43,6 +44,11 @@ public interface ILoginService {
             @Path("originDate") String originDate
     );
 
+    @GET("bookingSeat/{customerId}")
+    Call<BookingSeatResponse<BookingSeat>> getBookingSeat(
+            @Path("customerId") String customerId
+    );
+
     @GET("/routes")
     Call<RoutesResponse<Routes>> getRoutes2(
             @Query("origin") String origin,
@@ -58,4 +64,5 @@ public interface ILoginService {
 
     @PATCH("routes")
     Call<Routes> updateSeat(@Body Routes routes);
+
 }

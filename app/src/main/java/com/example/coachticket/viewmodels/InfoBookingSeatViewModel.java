@@ -172,10 +172,10 @@ public class InfoBookingSeatViewModel extends ViewModel {
             @Override
             public void onResponse(Call<BookingSeat> call, Response<BookingSeat> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(getContext(), "insert thành công", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Đặt vé thành công", Toast.LENGTH_SHORT).show();
                 } else {
                     errorMessage.setValue("Error inserting booking seat: " + response.errorBody().toString());
-                    Toast.makeText(getContext(), "insert không thành công"+ response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+                    Toast.makeText(getContext(), "Đặt vé không thành công"+ response.errorBody().toString(), Toast.LENGTH_SHORT).show();
                     Log.d("ERRORInsert", response.errorBody().toString());
                 }
 
@@ -183,7 +183,7 @@ public class InfoBookingSeatViewModel extends ViewModel {
 
             @Override
             public void onFailure(Call<BookingSeat> call, Throwable t) {
-                Toast.makeText(getContext(), "insert thất bại", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getContext(), "Đặt vé thất bại", Toast.LENGTH_SHORT).show();
             }
         });
     }
@@ -298,10 +298,10 @@ public class InfoBookingSeatViewModel extends ViewModel {
             @Override
             public void onResponse(Call<Routes> call, Response<Routes> response) {
                 if (response.isSuccessful()) {
-                    Toast.makeText(getContext(), "update thành công", Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "update thành công", Toast.LENGTH_SHORT).show();
                 } else {
                     errorMessage.setValue("Error update booking seat: " + response.errorBody().toString());
-                    Toast.makeText(getContext(), "update không thành công"+ response.errorBody().toString(), Toast.LENGTH_SHORT).show();
+//                    Toast.makeText(getContext(), "update không thành công"+ response.errorBody().toString(), Toast.LENGTH_SHORT).show();
                     Log.d("ERRORUpdate", response.errorBody().toString());
                 }
             }

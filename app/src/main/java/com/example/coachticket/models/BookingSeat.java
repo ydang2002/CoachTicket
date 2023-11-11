@@ -3,6 +3,7 @@ package com.example.coachticket.models;
 import java.util.List;
 
 public class BookingSeat {
+    private String _id;
     private String customerId;
     private int totalPrice;
     private int totalSeats;
@@ -13,7 +14,8 @@ public class BookingSeat {
     public BookingSeat() {
     }
 
-    public BookingSeat(String customerId, int totalPrice, int totalSeats, RoutesBookingSeat routes, Info info, List<BookingSeatDetails> bookingSeatDetails) {
+    public BookingSeat(String _id, String customerId, int totalPrice, int totalSeats, RoutesBookingSeat routes, Info info, List<BookingSeatDetails> bookingSeatDetails) {
+        this._id =  _id;
         this.customerId = customerId;
         this.totalPrice = totalPrice;
         this.totalSeats = totalSeats;
@@ -68,5 +70,13 @@ public class BookingSeat {
 
     public void setBookingSeatDetails(List<BookingSeatDetails> bookingSeatDetails) {
         this.bookingSeatDetails = bookingSeatDetails;
+    }
+
+    public String get_id() {
+        return _id;
+    }
+
+    public void set_id(String _id) {
+        this._id = _id;
     }
 }
