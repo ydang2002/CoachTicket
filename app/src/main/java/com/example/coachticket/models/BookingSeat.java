@@ -1,8 +1,13 @@
 package com.example.coachticket.models;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
+import androidx.annotation.NonNull;
+
 import java.util.List;
 
-public class BookingSeat {
+public class BookingSeat implements Parcelable {
     private String _id;
     private String customerId;
     private int totalPrice;
@@ -23,6 +28,28 @@ public class BookingSeat {
         this.info = info;
         this.bookingSeatDetails = bookingSeatDetails;
     }
+
+    protected BookingSeat(Parcel in) {
+        _id = in.readString();
+        customerId = in.readString();
+        totalPrice = in.readInt();
+        totalSeats = in.readInt();
+        routes = in.readParcelable(RoutesBookingSeat.class.getClassLoader());
+        bookingSeatDetails = in.createTypedArrayList(BookingSeatDetails.CREATOR);
+        info = in.readParcelable(Info.class.getClassLoader());
+    }
+
+    public static final Creator<BookingSeat> CREATOR = new Creator<BookingSeat>() {
+        @Override
+        public BookingSeat createFromParcel(Parcel in) {
+            return new BookingSeat(in);
+        }
+
+        @Override
+        public BookingSeat[] newArray(int size) {
+            return new BookingSeat[size];
+        }
+    };
 
     public String getCustomerId() {
         return customerId;
@@ -78,5 +105,21 @@ public class BookingSeat {
 
     public void set_id(String _id) {
         this._id = _id;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(@NonNull Parcel parcel, int i) {
+        parcel.writeString(_id);
+        parcel.writeString(customerId);
+        parcel.writeInt(totalPrice);
+        parcel.writeInt(totalSeats);
+        parcel.writeParcelable(routes, i);
+        parcel.writeTypedList(bookingSeatDetails);
+        parcel.writeParcelable(info, i);
     }
 }

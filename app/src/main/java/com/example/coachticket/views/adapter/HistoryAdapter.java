@@ -16,6 +16,8 @@ import com.example.coachticket.models.BookingSeat;
 import com.example.coachticket.views.activity.DetailHistory;
 import com.example.coachticket.views.fragment.HistoryFragment;
 
+import org.parceler.Parcels;
+
 import java.util.ArrayList;
 
 public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryViewHolder>{
@@ -44,6 +46,7 @@ public class HistoryAdapter extends RecyclerView.Adapter<HistoryAdapter.HistoryV
             @Override
             public void onClick(View view) {
                 Intent intent = new Intent(context, DetailHistory.class);
+                intent.putExtra("bookingSeat", Parcels.wrap(bookingSeat));
                 context.startActivity(intent);
             }
         });
