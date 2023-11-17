@@ -49,6 +49,7 @@ public class InfoBookingSeatViewModel extends ViewModel {
     private BookingSeat bookingSeat = new BookingSeat();
     private Context context;
     public ObservableInt btn = new ObservableInt(View.VISIBLE);
+    public ObservableInt progressBar = new ObservableInt(View.GONE);
     private MutableLiveData<String> errorMessage = new MutableLiveData<>();
     private Routes routes = new Routes();
 
@@ -161,6 +162,8 @@ public class InfoBookingSeatViewModel extends ViewModel {
 
     public void insertBookingSeat(/*BookingSeat bookingSeat Context context*/) {
 //        bookingSeat = new BookingSeat();
+        btn.set(View.GONE);
+        progressBar.set(View.VISIBLE);
         updateSeat();
         bookingSeat.setCustomerId(getId());
         bookingSeat.setTotalSeats(getSize());
@@ -175,8 +178,9 @@ public class InfoBookingSeatViewModel extends ViewModel {
             @Override
             public void onResponse(Call<BookingSeat> call, Response<BookingSeat> response) {
                 if (response.isSuccessful()) {
+                    progressBar.set(View.GONE);
                     Toast.makeText(getContext(), "Đặt vé thành công", Toast.LENGTH_SHORT).show();
-                    btn.set(View.GONE);
+//                    btn.set(View.GONE);
                 } else {
                     errorMessage.setValue("Error inserting booking seat: " + response.errorBody().toString());
                     Toast.makeText(getContext(), "Đặt vé không thành công"+ response.errorBody().toString(), Toast.LENGTH_SHORT).show();
