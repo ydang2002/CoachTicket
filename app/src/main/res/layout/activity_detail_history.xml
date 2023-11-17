@@ -198,7 +198,7 @@
                                 android:layout_width="0dp"
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
-                                android:text="@{viewModel.bookingSeat.routes.origin.locations}"/>
+                                android:text="@{viewModel.bookingSeat.routes.destination.locations}"/>
                         </LinearLayout>
                     </LinearLayout>
 

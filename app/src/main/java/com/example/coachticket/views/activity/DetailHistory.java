@@ -6,6 +6,7 @@ import androidx.lifecycle.ViewModelProvider;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.example.coachticket.R;
 import com.example.coachticket.databinding.ActivityDetailHistoryBinding;
@@ -36,5 +37,9 @@ public class DetailHistory extends AppCompatActivity {
         // Liên kết ViewModel với DataBinding
         binding.setViewModel(viewModel);
         binding.setLifecycleOwner(this);
+    }
+
+    public void goBack(View view) {
+        finish();
     }
 }
