@@ -122,6 +122,10 @@ public class ChooseSeatActivity extends AppCompatActivity {
             public void intentSelectPickupAndDrop() {
                 int price = chooseSeatViewModel.getPrice();
                 List<Seat> selectedSeats = chooseSeatViewModel.getSelectedSeats();
+                if (selectedSeats.size() == 0) {
+                    Toast.makeText(ChooseSeatActivity.this, "Vui lòng chọn ghế", Toast.LENGTH_SHORT).show();
+                    return;
+                }
                 Intent intent = new Intent(ChooseSeatActivity.this, SelectPickUpPointActivity.class);
                 intent.putParcelableArrayListExtra("selectedSeats", new ArrayList<>(selectedSeats));
                 intent.putExtra("routes", Parcels.wrap(routes));

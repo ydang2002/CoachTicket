@@ -2,8 +2,10 @@ package com.example.coachticket.viewmodels;
 
 import android.content.Context;
 import android.util.Log;
+import android.view.View;
 import android.widget.Toast;
 
+import androidx.databinding.ObservableInt;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -46,6 +48,7 @@ public class InfoBookingSeatViewModel extends ViewModel {
     private ILoginService iLoginService;
     private BookingSeat bookingSeat = new BookingSeat();
     private Context context;
+    public ObservableInt btn = new ObservableInt(View.VISIBLE);
     private MutableLiveData<String> errorMessage = new MutableLiveData<>();
     private Routes routes = new Routes();
 
@@ -173,6 +176,7 @@ public class InfoBookingSeatViewModel extends ViewModel {
             public void onResponse(Call<BookingSeat> call, Response<BookingSeat> response) {
                 if (response.isSuccessful()) {
                     Toast.makeText(getContext(), "Đặt vé thành công", Toast.LENGTH_SHORT).show();
+                    btn.set(View.GONE);
                 } else {
                     errorMessage.setValue("Error inserting booking seat: " + response.errorBody().toString());
                     Toast.makeText(getContext(), "Đặt vé không thành công"+ response.errorBody().toString(), Toast.LENGTH_SHORT).show();

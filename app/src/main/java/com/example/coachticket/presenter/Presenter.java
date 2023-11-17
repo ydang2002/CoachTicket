@@ -9,4 +9,5 @@ public class Presenter {
     public void intentContactInfo(){}
     public void intentInfoBookingSeat(){}
     public void goBackSelectPickUpPoint(){}
+    public void logout(){}
 }

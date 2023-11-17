@@ -350,6 +350,7 @@
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/button_shape"
                 android:text="Tiếp tục"
+                android:visibility="@{viewModel.btn}"
                 android:onClick="@{(v)-> viewModel.insertBookingSeat()}"
                 android:textColor="@color/white"
                 android:textStyle="bold" />

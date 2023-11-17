@@ -12,6 +12,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.example.coachticket.BR;
 import com.example.coachticket.R;
@@ -79,6 +80,17 @@ public class SelectPickUpPointActivity extends AppCompatActivity {
             public void intentContactInfo() {
                 MutableLiveData<String> radioButton1 = (MutableLiveData<String>) viewModel.getRadioGroup1Value();
                 MutableLiveData<String> radioButton2 = (MutableLiveData<String>) viewModel.getRadioGroup2Value();
+
+                if (radioButton1.getValue() == null) {
+                    Toast.makeText(SelectPickUpPointActivity.this, "Vui lòng chọn điểm đón", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
+                if (radioButton2.getValue() == null) {
+                    Toast.makeText(SelectPickUpPointActivity.this, "Vui lòng chọn điểm trả", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+
                 Intent intent = new Intent(SelectPickUpPointActivity.this, ContactInfoActivity.class);
                 intent.putParcelableArrayListExtra("selectedSeats", new ArrayList<>(selectedSeats));
                 intent.putExtra("routes", Parcels.wrap(routes));
