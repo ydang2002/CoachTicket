@@ -232,7 +232,7 @@
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
                 android:background="@android:color/transparent"
-                android:text="Chưa có tài khoản?"
+                android:text="Đã có tài khoản?"
                 android:onClick="@{(v)-> signUpViewModel.intent()}"
                 android:textColor="@color/black"
                 android:textStyle="bold"
