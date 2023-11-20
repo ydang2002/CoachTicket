@@ -100,7 +100,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_weight="1"
                                 android:drawableLeft="@drawable/baseline_crop_square_24_white"
-                                android:text="285000đ/ghế"/>
+                                android:text="@{@string/price_trip(ChooSeatViewModel.priceTrip)}"/>
 
                         </LinearLayout>
 

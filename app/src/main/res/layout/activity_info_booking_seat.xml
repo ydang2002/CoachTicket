@@ -38,6 +38,7 @@
                         android:layout_centerVertical="true"
                         android:layout_marginStart="20dp"
                         android:onClick="goBack"
+                        android:visibility="@{viewModel.img}"
                         android:src="@drawable/ic_back_arrow"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:tint="@color/black" />
@@ -321,7 +322,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="20dp"
                 android:layout_marginTop="15dp"
-                android:layout_marginBottom="30dp"
+                android:layout_marginBottom="15dp"
                 android:layout_marginEnd="20dp">
 
                 <TextView
@@ -349,9 +350,22 @@
                 android:layout_marginEnd="20sp"
                 android:layout_marginBottom="20dp"
                 android:background="@drawable/button_shape"
-                android:text="Tiếp tục"
+                android:text="Đặt vé"
                 android:visibility="@{viewModel.btn}"
                 android:onClick="@{(v)-> viewModel.insertBookingSeat()}"
+                android:textColor="@color/white"
+                android:textStyle="bold" />
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20sp"
+                android:layout_marginEnd="20sp"
+                android:layout_marginBottom="20dp"
+                android:background="@drawable/button_shape"
+                android:text="Trang chủ"
+                android:visibility="@{viewModel.btnHome}"
+                android:onClick="@{(v)-> viewModel.intent()}"
                 android:textColor="@color/white"
                 android:textStyle="bold" />
             <ProgressBar

@@ -30,6 +30,7 @@ import com.example.coachticket.databinding.ActivityChooseCarrierBinding;
 import com.example.coachticket.models.Routes;
 import com.example.coachticket.response.RoutesResponse;
 import com.example.coachticket.views.activity.ChooseCarrierActivity;
+import com.example.coachticket.views.activity.MainActivity;
 import com.example.coachticket.views.activity.SignUpActivity;
 import com.example.coachticket.views.adapter.ChooseCarrierAdapter;
 import com.example.coachticket.views.fragment.HomeFragment;
@@ -183,11 +184,9 @@ public class ChooseCarrierViewModel extends ViewModel/*BaseObservable*/ {
     }
 
     public void intent() {
-//        Intent intent = new Intent(context, HomeFragment.class);
-//        context.startActivity(intent);
-//        context.finish();
-        Toast.makeText(context, "go back", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
+        ((Activity) context).finish();
     }
-//    android:onClick="@{()-> presenter.goBack()}"
 
 }
