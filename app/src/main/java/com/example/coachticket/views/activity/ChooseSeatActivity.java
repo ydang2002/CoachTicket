@@ -116,6 +116,8 @@ public class ChooseSeatActivity extends AppCompatActivity {
         activityChooseSeatBinding.recyclerViewGroup2.setLayoutManager(new GridLayoutManager(this, 3));
         activityChooseSeatBinding.recyclerViewGroup1.setAdapter(adapter1);
         activityChooseSeatBinding.recyclerViewGroup2.setAdapter(adapter2);
+        int priceTrip = routes.getPrice();
+        chooseSeatViewModel.setPriceTrip(priceTrip);
 
         activityChooseSeatBinding.setPresenter(new Presenter() {
             @Override

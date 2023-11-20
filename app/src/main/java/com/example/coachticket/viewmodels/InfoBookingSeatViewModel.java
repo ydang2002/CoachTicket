@@ -1,6 +1,8 @@
 package com.example.coachticket.viewmodels;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -23,6 +25,10 @@ import com.example.coachticket.models.Routes;
 import com.example.coachticket.models.RoutesBookingSeat;
 import com.example.coachticket.models.Seat;
 import com.example.coachticket.models.Trip;
+import com.example.coachticket.views.activity.ChooseCarrierActivity;
+import com.example.coachticket.views.activity.MainActivity;
+import com.example.coachticket.views.activity.SignUpActivity;
+import com.example.coachticket.views.fragment.HistoryFragment;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -49,6 +55,8 @@ public class InfoBookingSeatViewModel extends ViewModel {
     private BookingSeat bookingSeat = new BookingSeat();
     private Context context;
     public ObservableInt btn = new ObservableInt(View.VISIBLE);
+    public ObservableInt btnHome = new ObservableInt(View.GONE);
+    public ObservableInt img = new ObservableInt(View.VISIBLE);
     public ObservableInt progressBar = new ObservableInt(View.GONE);
     private MutableLiveData<String> errorMessage = new MutableLiveData<>();
     private Routes routes = new Routes();
@@ -178,7 +186,9 @@ public class InfoBookingSeatViewModel extends ViewModel {
             @Override
             public void onResponse(Call<BookingSeat> call, Response<BookingSeat> response) {
                 if (response.isSuccessful()) {
+                    img.set(View.GONE);
                     progressBar.set(View.GONE);
+                    btnHome.set(View.VISIBLE);
                     Toast.makeText(getContext(), "Đặt vé thành công", Toast.LENGTH_SHORT).show();
 //                    btn.set(View.GONE);
                 } else {
@@ -320,6 +330,12 @@ public class InfoBookingSeatViewModel extends ViewModel {
             }
         });
 
+    }
+
+    public void intent() {
+        Intent intent = new Intent(context, MainActivity.class);
+        context.startActivity(intent);
+        ((Activity) context).finish();
     }
 
 //    // Phương thức để cập nhật statusSeat

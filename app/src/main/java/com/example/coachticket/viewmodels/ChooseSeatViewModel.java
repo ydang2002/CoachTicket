@@ -22,6 +22,7 @@ public class ChooseSeatViewModel extends ViewModel {
 //    private Context context;
 
     private int price;
+    private int priceTrip;
 
     public ChooseSeatViewModel() {
 
@@ -59,6 +60,14 @@ public class ChooseSeatViewModel extends ViewModel {
 
     public void setPrice(int price) {
         this.price = price;
+    }
+
+    public int getPriceTrip() {
+        return priceTrip;
+    }
+
+    public void setPriceTrip(int priceTrip) {
+        this.priceTrip = priceTrip;
     }
 
     public void onSeatSelected(Seat seat) {
@@ -124,7 +133,9 @@ public class ChooseSeatViewModel extends ViewModel {
 
     private void updateTotalPrice() {
         // Tính tổng giá tiền dựa trên số ghế đã chọn và giá tiền mỗi ghế
-        int pricePerSeat = 285000; // Giá tiền mỗi ghế
+//        int pricePerSeat = 285000; // Giá tiền mỗi ghế
+//        int total = selectedSeats.size() * pricePerSeat;
+        int pricePerSeat = getPriceTrip(); // Giá tiền mỗi ghế
         int total = selectedSeats.size() * pricePerSeat;
         totalPrice.setValue(String.format("%,d VND", total));
         setPrice(total);

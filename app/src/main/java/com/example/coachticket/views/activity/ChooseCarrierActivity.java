@@ -30,7 +30,7 @@ public class ChooseCarrierActivity extends AppCompatActivity {
             @Override
             public void goBack() {
                 Toast.makeText(ChooseCarrierActivity.this, "go back", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(ChooseCarrierActivity.this, LoginActivity.class);
+                Intent intent = new Intent(ChooseCarrierActivity.this, MainActivity.class);
                 ChooseCarrierActivity.this.startActivity(intent);
                 ((Activity) ChooseCarrierActivity.this).finish();
             }

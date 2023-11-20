@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProvider;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.example.coachticket.models.Routes;
 import com.example.coachticket.models.Seat;
 import com.example.coachticket.models.Trip;
 import com.example.coachticket.viewmodels.InfoBookingSeatViewModel;
+import com.example.coachticket.views.fragment.HistoryFragment;
 
 import org.parceler.Parcels;
 
@@ -104,4 +106,9 @@ public class InfoBookingSeatActivity extends AppCompatActivity {
         finish();
     }
 
+//    public void backChooseCarrier(View view) {
+//            Intent intent = new Intent(this, HistoryFragment.class);
+//            this.startActivity(intent);
+//            ((Activity) this).finish();
+//    }
 }
