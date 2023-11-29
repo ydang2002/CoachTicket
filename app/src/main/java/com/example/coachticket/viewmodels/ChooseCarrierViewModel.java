@@ -58,8 +58,8 @@ public class ChooseCarrierViewModel extends ViewModel/*BaseObservable*/ {
 
     public ChooseCarrierViewModel(Context context, ActivityChooseCarrierBinding activityChooseCarrierBinding) {
         mListRoutes = new ArrayList<Routes>();
-        adapter = new ChooseCarrierAdapter(context, mListRoutes);
-        activityChooseCarrierBinding.rcvCarrier.setAdapter(adapter);
+        adapter = new ChooseCarrierAdapter(context, mListRoutes);// khởi tạo đối tượng ChooseCarrierAdapter
+        activityChooseCarrierBinding.rcvCarrier.setAdapter(adapter);// đặt adapter cho rcv trong activityChooseCarrierBinding
         String origin = SharedPrefOriginDestination.getOrigin(context);
         String destination = SharedPrefOriginDestination.getDestination(context);
         String TVDate = SharedPrefOriginDestination.getDate(context);

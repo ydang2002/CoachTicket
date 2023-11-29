@@ -1,5 +1,5 @@
 package com.example.coachticket.presenter;
-
+// Logic điều hướng và xử lý sự kiện.
 public class Presenter {
     public void login() {}
     public void signUp(){}

@@ -44,17 +44,18 @@ public class ChooseSeatAdapter extends RecyclerView.Adapter<ChooseSeatAdapter.Ch
         holder.itemSeatBinding.setSeat(seat);
 
         if (holder.itemSeatBinding.getSeat().getStatusSeat()) {
+            // Ghế đã chọn, hiển thị màu và chữ tương ứng
             holder.itemSeatBinding.buttonSeat.setBackgroundResource(R.color.grey);
             holder.itemSeatBinding.buttonSeat.setTextColor(Color.GRAY);
             holder.itemSeatBinding.buttonSeat.setText("");
         } else {
             if (viewModel.getSelectedSeats().contains(seat)) {
-                // Ghế đã chọn, hiển thị màu và chữ tương ứng
+                // Ghế chưa chọn
                 holder.itemSeatBinding.buttonSeat.setBackgroundResource(R.color.black);
                 holder.itemSeatBinding.buttonSeat.setTextColor(Color.WHITE);
                 holder.itemSeatBinding.buttonSeat.setText(seat.getId());
             } else {
-                // Ghế chưa chọn
+                // Ghế đang chọn
 //                holder.itemSeatBinding.buttonSeat.setBackgroundResource(R.color.white);
                 holder.itemSeatBinding.buttonSeat.setTextColor(Color.BLACK);
 //                holder.itemSeatBinding.buttonSeat.setText("");
