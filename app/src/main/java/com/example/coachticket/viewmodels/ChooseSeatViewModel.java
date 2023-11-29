@@ -32,7 +32,7 @@ public class ChooseSeatViewModel extends ViewModel {
     private final MutableLiveData<String> totalPrice = new MutableLiveData<>();
     private final List<Seat> selectedSeats = new ArrayList<>();
     private MutableLiveData<Integer> selectedSeatCount = new MutableLiveData<>(0);
-
+// phương thức này thực hiện công việc chuẩn bị dữ liệu và tạo hai đối tượng ChooseSeatAdapter để sử dụng chúng trong việc hiển thị danh sách ghế chỗ trong giao diện
     public void initAdapters(ArrayList<Seat> seat1, ArrayList<Seat> seat2, Activity context) {
         adapter1 = new ChooseSeatAdapter(seat1, context, this);
         adapter2 = new ChooseSeatAdapter(seat2, context, this);

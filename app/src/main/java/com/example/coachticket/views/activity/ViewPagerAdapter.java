@@ -28,6 +28,7 @@ public class ViewPagerAdapter extends FragmentStatePagerAdapter {
         }
     }
 
+    //trả về số lượng của tab
     @Override
     public int getCount() {
         return 3;

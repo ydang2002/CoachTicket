@@ -22,9 +22,12 @@ public class ChooseCarrierActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // Tạo đối tượng DataBinding và liên kết với layout XML
         activityChooseCarrierBinding = DataBindingUtil.setContentView(this, R.layout.activity_choose_carrier);
+        //Tạo một đối tượng ChooseCarrierViewModel mới và gán cho activityChooseCarrierBinding. Điều này thiết lập ViewModel cho DataBinding, cho phép layout XML truy cập và hiển thị dữ liệu từ ViewModel.
         activityChooseCarrierBinding.setCarrierViewModel(new ChooseCarrierViewModel(this, activityChooseCarrierBinding));
         viewModel = new ChooseCarrierViewModel(this);
+        //Gán viewModel cho activityChooseCarrierBinding. Điều này cung cấp cho layout XML khả năng truy cập và hiển thị dữ liệu từ viewModel.
         activityChooseCarrierBinding.setCarrierViewModel(viewModel);
         activityChooseCarrierBinding.setPresenter(new Presenter() {
             @Override
@@ -35,6 +38,7 @@ public class ChooseCarrierActivity extends AppCompatActivity {
                 ((Activity) ChooseCarrierActivity.this).finish();
             }
         });
+        //Thực hiện các lệnh liên quan đến DataBinding. Điều này đảm bảo rằng bất kỳ thay đổi dữ liệu nào trong ViewModel đã được ánh xạ chính xác lên layout XML.
         activityChooseCarrierBinding.executePendingBindings();
 //        setContentView(activityChooseCarrierBinding.getRoot());
     }

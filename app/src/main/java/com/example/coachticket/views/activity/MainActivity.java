@@ -46,8 +46,9 @@ public class MainActivity extends AppCompatActivity {
     }
 
     private  void setUpViewPager() {
+        //khởi tạo viewpager
         ViewPagerAdapter viewPagerAdapter = new ViewPagerAdapter(getSupportFragmentManager(), FragmentStatePagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
-        mViewpager.setAdapter(viewPagerAdapter);
+        mViewpager.setAdapter(viewPagerAdapter);// add 3 fragment vào viewpager
 
         mViewpager.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override

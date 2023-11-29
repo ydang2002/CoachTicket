@@ -45,7 +45,7 @@ public class HomeFragment extends Fragment {
                              Bundle savedInstanceState) {
         // Tạo đối tượng DataBinding và liên kết với layout XML
         fragmentHomeBinding = DataBindingUtil.inflate(inflater, R.layout.fragment_home, container, false);
-//        routesViewModel = new ViewModelProvider(this).get(RoutesViewModel.class);
+//       RoutesViewModel là một lớp ViewModel được sử dụng để cung cấp dữ liệu cho fragment.
         routesViewModel = new ViewModelProvider(this).get(RoutesViewModel.class);
 //        chooseCarrierViewModel = new ViewModelProvider(this).get(ChooseCarrierViewModel.class);
         // Gán ViewModel cho DataBinding
