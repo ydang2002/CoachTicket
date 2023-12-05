@@ -117,14 +117,9 @@ public class ChooseCarrierViewModel extends ViewModel/*BaseObservable*/ {
                     }
                 });
 
-        searchFunc(activityChooseCarrierBinding.nameInput, activityChooseCarrierBinding.rcvCarrier,
-                activityChooseCarrierBinding.noCarrier);
-//        activityChooseCarrierBinding.cartBackArrow.setOnClickListener(new View.OnClickListener() {
-//            @Override
-//            public void onClick(View view) {
-//                intent();
-//            }
-//        });
+//        searchFunc(activityChooseCarrierBinding.nameInput, activityChooseCarrierBinding.rcvCarrier,
+//                activityChooseCarrierBinding.noCarrier);
+
 
         SharedPrefOriginDestination.clearOrigin(context);
         SharedPrefOriginDestination.clearDestination(context);
