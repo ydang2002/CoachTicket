@@ -50,32 +50,32 @@
 
         </RelativeLayout>
 
-        <androidx.cardview.widget.CardView
-            android:id="@+id/card2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/toolbar"
-            android:layout_marginStart="10dp"
-            android:layout_marginEnd="10dp"
-            app:cardCornerRadius="50dp">
+<!--        <androidx.cardview.widget.CardView-->
+<!--            android:id="@+id/card2"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_below="@+id/toolbar"-->
+<!--            android:layout_marginStart="10dp"-->
+<!--            android:layout_marginEnd="10dp"-->
+<!--            app:cardCornerRadius="50dp">-->
 
-            <EditText
-                android:id="@+id/name_input"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginStart="20dp"
-                android:layout_marginEnd="20dp"
-                android:background="@null"
-                android:drawableStart="@drawable/ic_search"
-                android:drawableTint="@color/grey"
-                android:gravity="center"
-                android:hint="Nhập tên nhà xe"
-                android:inputType="text"
-                android:maxLines="1"
-                android:textColor="@color/black"
-                android:text="@={CarrierViewModel.searchText}"
-                android:textSize="16sp" />
-        </androidx.cardview.widget.CardView>
+<!--            <EditText-->
+<!--                android:id="@+id/name_input"-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="50dp"-->
+<!--                android:layout_marginStart="20dp"-->
+<!--                android:layout_marginEnd="20dp"-->
+<!--                android:background="@null"-->
+<!--                android:drawableStart="@drawable/ic_search"-->
+<!--                android:drawableTint="@color/grey"-->
+<!--                android:gravity="center"-->
+<!--                android:hint="Nhập tên nhà xe"-->
+<!--                android:inputType="text"-->
+<!--                android:maxLines="1"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:text="@={CarrierViewModel.searchText}"-->
+<!--                android:textSize="16sp" />-->
+<!--        </androidx.cardview.widget.CardView>-->
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcv_carrier"
@@ -83,7 +83,7 @@
             android:layout_height="wrap_content"
             android:overScrollMode="never"
             android:visibility="visible"
-            android:layout_below="@+id/card2"
+            android:layout_below="@+id/toolbar"
             tools:listitem="@layout/item_carriers"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             android:orientation="vertical"
